@@ -2,12 +2,12 @@ execute pathogen#infect()
 syntax enable
 filetype plugin indent on
 set number
-set fillchars+=vert:\ 
+set fillchars+=vert:\
 set hlsearch
 
 " set tab stops to 2 and expand tabs to spaces
-set ts=2 
-set sw=2 
+set ts=2
+set sw=2
 set expandtab
 
 " turn on ruby evaluation for c-x c-o expansion
@@ -22,13 +22,16 @@ filetype plugin indent on
 syntax on
 augroup customGo
   autocmd!
-  autocmd filetype go autocmd!
-  autocmd filetype go autocmd BufWritePre <buffer> Fmt
-  autocmd filetype go autocmd BufWritePost <buffer> call VimuxRunCommand("go test ./...")
+  autocmd BufWritePre *.go Fmt
+  autocmd BufWritePost *.go call VimuxRunCommand("go test ./...")
 augroup END
 
 " Options for Vimux
+let mapleader = ","
 let VimuxUseNearestPane = 1
+map <Leader>rp :VimuxPromptCommand<CR>
+map <Leader>rr :VimuxRunLastCommand<CR>
+map <leader>n :NERDTreeToggle<cr>
 
 " GUI
 if has("gui_running")
@@ -67,6 +70,7 @@ else
   let g:solarized_termcolors=16
   set background=dark
   colorscheme solarized
+"  colorscheme wrook
 
   " Setting up the mouse for console work
   set ttyfast

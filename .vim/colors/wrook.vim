@@ -4,75 +4,105 @@ if exists("syntax_on")
   syntax reset
 endif
 let g:colors_name = "wrook"
+"k r g y b v c w"
+if has("gui_running")
+  let s:vmode       = "gui"
+  let s:i           = "italic"
+  let s:ii          = ",italic"
+  let s:text        = "#202040"
+  let s:comment     = "#a02040"
+  let s:constant    = "#206060"
+  let s:nontext     = "#805010"
+  let s:statement   = "#104070"
+  let s:preproc     = "#705070"
+  let s:label       = "#209090"
+  let s:white       = "#dfdebf"
+  let s:storage     = "#404040"
+  let s:diffdelete  = "#f04070"
+  let s:diffadd     = "#50f040"
+  let s:highlight   = "#f0f020"
+  let s:stringback  = "#b5d5c5"
+  let s:border      = "#c0c0c0"
+  let s:difftext    = "#08e0c0"
+  let s:background  = "#f7f7d5"
+else
+  let s:vmode       = "cterm"
+  let s:i           = "none"
+  let s:ii          = ""
+  let s:text        = "0"
+  let s:comment     = "1"
+  let s:constant    = "2"
+  let s:nontext     = "3"
+  let s:statement   = "4"
+  let s:preproc     = "5"
+  let s:label       = "6"
+  let s:white       = "7"
+  let s:storage     = "8"
+  let s:diffdelete  = "9"
+  let s:diffadd     = "10"
+  let s:highlight   = "11"
+  let s:stringback  = "12"
+  let s:border      = "13"
+  let s:difftext    = "14"
+  let s:background  = "15"
+endif
 
-let s:background  = "#f7f7d5"
-let s:text        = "#001020"
-let s:stringback  = "#b5d5c5"
-let s:highlight   = "#f0f020"
-let s:comment     = "#a02040"
-let s:label       = "#209090"
-let s:statement   = "#104070"
-let s:type        = "#304060"
-let s:border      = "#c0c0c0"
-
-exe "hi! Normal       guifg=".s:text."         guibg=".s:background
-exe "hi! Function     guifg=".s:label."        gui=bold"
-hi NonText      guifg=#301010
-exe "hi! comment      guifg=".s:comment."      gui=bold,italic"
-hi constant     guifg=#206060                   gui=bold
-exe "hi! identifier   guifg=".s:type."         gui=bold"
-exe "hi! statement    guifg=".s:statement."  gui=bold"
-hi preproc      guifg=#705070                   gui=bold
-exe "hi! type         guifg=".s:type."         gui=bold"
-exe "hi! special      guifg=".s:label."      gui=bold"
-exe "hi! string       guifg=".s:statement."  guibg=".s:stringback
-exe "hi! ErrorMsg     guifg=".s:comment."  guibg=".s:highlight
-exe "hi! WarningMsg   guifg=".s:label."    guibg=".s:highlight
-exe "hi! Error        guifg=".s:comment."  guibg=".s:highlight
-exe "hi! Todo         guifg=".s:highlight."  guibg=".s:comment." gui=bold"
-exe "hi! Cursor       guifg=".s:highlight."   guibg=".s:comment
-exe "hi! Search       guifg=".s:label."   guibg=".s:highlight
-exe "hi! InSearch                           guibg=".s:highlight." gui=NONE"
-exe "hi! LineNr       guifg=".s:statement."  guibg=".s:border." gui=bold"
-exe "hi! StatusLineNC guifg=".s:statement."  guibg=".s:border." gui=NONE"
-exe "hi! StatusLine   guifg=".s:highlight."  guibg=".s:statement." gui=bold"
-exe "hi! VertSplit    guifg=".s:statement."      gui=reverse term=reverse cterm=reverse"
-exe "hi! label        guifg=".s:label."          gui=bold"
-exe "hi! operator     guifg=".s:type."           gui=bold"
+exe "hi! Normal       ".s:vmode."fg=".s:text."      ".s:vmode."bg=".s:background
+exe "hi! Function     ".s:vmode."fg=".s:label." ".s:vmode."=bold"
+exe "hi! NonText      ".s:vmode."fg=".s:nontext
+exe "hi! comment      ".s:vmode."fg=".s:comment." ".s:vmode."=bold".s:ii
+exe "hi! constant     ".s:vmode."fg=".s:constant." ".s:vmode."=bold"
+exe "hi! identifier   ".s:vmode."fg=".s:text." ".s:vmode."=bold"
+exe "hi! statement    ".s:vmode."fg=".s:statement." ".s:vmode."=bold"
+exe "hi! preproc      ".s:vmode."fg=".s:preproc." ".s:vmode."=bold"
+exe "hi! type         ".s:vmode."fg=".s:text." ".s:vmode."=bold"
+exe "hi! special      ".s:vmode."fg=".s:label." ".s:vmode."=bold"
+exe "hi! string       ".s:vmode."fg=".s:statement." ".s:vmode."bg=".s:stringback
+exe "hi! ErrorMsg     ".s:vmode."fg=".s:comment."   ".s:vmode."bg=".s:highlight
+exe "hi! WarningMsg   ".s:vmode."fg=".s:label."     ".s:vmode."bg=".s:highlight
+exe "hi! Error        ".s:vmode."fg=".s:comment."   ".s:vmode."bg=".s:highlight
+exe "hi! Todo         ".s:vmode."fg=".s:highlight." ".s:vmode."bg=".s:comment." ".s:vmode."=bold"
+exe "hi! Cursor       ".s:vmode."fg=".s:highlight." ".s:vmode."bg=".s:comment
+exe "hi! Search       ".s:vmode."fg=".s:label."     ".s:vmode."bg=".s:highlight
+exe "hi! InSearch                           ".s:vmode."bg=".s:highlight." ".s:vmode."=NONE"
+exe "hi! LineNr       ".s:vmode."fg=".s:statement." ".s:vmode."bg=".s:border." ".s:vmode."=none"
+exe "hi! StatusLineNC ".s:vmode."fg=".s:statement." ".s:vmode."bg=".s:border." ".s:vmode."=NONE"
+exe "hi! StatusLine   ".s:vmode."fg=".s:highlight." ".s:vmode."bg=".s:statement." ".s:vmode."=bold"
+exe "hi! VertSplit    ".s:vmode."fg=".s:statement." ".s:vmode."=reverse"
+exe "hi! label        ".s:vmode."fg=".s:label." ".s:vmode."=bold"
+exe "hi! operator     ".s:vmode."fg=".s:text." ".s:vmode."=bold"
 
 hi link cPreCondit preproc
-hi cDefine      guifg=#209090                   gui=bold
-hi cStructure   guifg=#104070                   gui=bold
+exe "hi! cDefine      ".s:vmode."fg=".s:label." ".s:vmode."=bold"
+exe "hi! cStructure   ".s:vmode."fg=".s:statement." ".s:vmode."=bold"
 hi link cppStructure cStructure
 hi link cCommentL comment
-hi link Type type
-hi link cppType type
-hi cStorageClass guifg=#404040                  gui=bold,italic
+hi link Type text
+hi link cppType text
+exe "hi! cStorageClass   ".s:vmode."fg=".s:storage." ".s:vmode."=bold".s:ii
 hi link cInclude cDefine
-hi cIncluded    guifg=#209090                   gui=NONE
+exe "hi! cIncluded    ".s:vmode."fg=".s:label." ".s:vmode."=bold"
 hi link cNumber constant
 hi link cppBoolean constant
 hi link cUserLabel label
 hi link cString string
 hi link cComment comment
-hi link cStatement type
-hi link cConditional type
+hi link cStatement text
+hi link cConditional text
 hi link cConstant constant
 hi link cOperator constant
 
 hi clear Visual
-hi Visual     guifg=#f0f020   guibg=#304060 gui=reverse term=reverse cterm=reverse
-hi DiffChange                 guibg=#b0ffc0
-hi DiffText                   guibg=#08e0c0
-hi DiffAdd                    guibg=#50f040
-hi DiffDelete                 guibg=#f04070
+exe "hi! Visual ".s:vmode."fg=".s:highlight."   ".s:vmode."bg=".s:text." ".s:vmode."=reverse"
+exe "hi! DiffChange                     ".s:vmode."bg=".s:stringback
+exe "hi! DiffText                       ".s:vmode."bg=".s:difftext
+exe "hi! DiffAdd                        ".s:vmode."bg=".s:diffadd
+exe "hi! DiffDelete                     ".s:vmode."bg=".s:diffdelete
 hi link Folded StatusLine
-hi FoldColumn guifg=white    guibg=gray30
+exe "hi! FoldColumn   ".s:vmode."fg=".s:white." ".s:vmode."bg=".s:diffdelete
 
-exe "hi! rubyFunction guifg=".s:highlight."  guibg=".s:label." gui=bold"
-exe "hi! rubyInstanceVariable  gui=italic"
+exe "hi! rubyFunction ".s:vmode."fg=".s:highlight." ".s:vmode."bg=".s:label." ".s:vmode."=bold"
+exe "hi! rubyInstanceVariable  ".s:vmode."=".s:i
 
-exe "hi! javaScriptFuncName guifg=".s:highlight."  guibg=".s:label." gui=bold"
-
-
+exe "hi! javaScriptFuncName ".s:vmode."fg=".s:highlight." ".s:vmode."bg=".s:label." ".s:vmode."=bold"
 
