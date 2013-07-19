@@ -9,41 +9,45 @@ if has("gui_running")
   let s:vmode       = "gui"
   let s:i           = "italic"
   let s:ii          = ",italic"
+
+  let s:border      = "#c0c0c0"
+  let s:diffdelete  = "#f04070"
+  let s:diffadd     = "#50f040"
+  let s:nontext     = "#805010"
+  let s:stringback  = "#b5d5c5"
+  let s:unused      = "#daaef1"
+  let s:difftext    = "#08e0c0"
+  let s:storage     = "#0248a2"
+
   let s:text        = "#202040"
   let s:comment     = "#a02040"
   let s:constant    = "#206060"
-  let s:nontext     = "#805010"
+  let s:highlight   = "#f0f020"
   let s:statement   = "#104070"
   let s:preproc     = "#705070"
   let s:label       = "#209090"
-  let s:white       = "#dfdebf"
-  let s:storage     = "#404040"
-  let s:diffdelete  = "#f04070"
-  let s:diffadd     = "#50f040"
-  let s:highlight   = "#f0f020"
-  let s:stringback  = "#b5d5c5"
-  let s:border      = "#c0c0c0"
-  let s:difftext    = "#08e0c0"
   let s:background  = "#f7f7d5"
 else
   let s:vmode       = "cterm"
   let s:i           = "none"
   let s:ii          = ""
-  let s:text        = "0"
-  let s:comment     = "1"
-  let s:constant    = "2"
+
+  let s:border      = "0" 
+  let s:diffdelete  = "1"
+  let s:diffadd     = "2"
   let s:nontext     = "3"
-  let s:statement   = "4"
-  let s:preproc     = "5"
-  let s:label       = "6"
-  let s:white       = "7"
-  let s:storage     = "8"
-  let s:diffdelete  = "9"
-  let s:diffadd     = "10"
+  let s:stringback  = "4"
+  let s:unused      = "5"
+  let s:difftext    = "6"
+  let s:storage     = "7"
+
+  let s:text        = "8"
+  let s:comment     = "9"
+  let s:constant    = "10"
   let s:highlight   = "11"
-  let s:stringback  = "12"
-  let s:border      = "13"
-  let s:difftext    = "14"
+  let s:statement   = "12"
+  let s:preproc     = "13"
+  let s:label       = "14"
   let s:background  = "15"
 endif
 
@@ -65,7 +69,7 @@ exe "hi! Todo         ".s:vmode."fg=".s:highlight." ".s:vmode."bg=".s:comment." 
 exe "hi! Cursor       ".s:vmode."fg=".s:highlight." ".s:vmode."bg=".s:comment
 exe "hi! Search       ".s:vmode."fg=".s:label."     ".s:vmode."bg=".s:highlight
 exe "hi! InSearch                           ".s:vmode."bg=".s:highlight." ".s:vmode."=NONE"
-exe "hi! LineNr       ".s:vmode."fg=".s:statement." ".s:vmode."bg=".s:border." ".s:vmode."=none"
+exe "hi! LineNr       ".s:vmode."fg=".s:statement." ".s:vmode."bg=".s:border." ".s:vmode."=bold"
 exe "hi! StatusLineNC ".s:vmode."fg=".s:statement." ".s:vmode."bg=".s:border." ".s:vmode."=NONE"
 exe "hi! StatusLine   ".s:vmode."fg=".s:highlight." ".s:vmode."bg=".s:statement." ".s:vmode."=bold"
 exe "hi! VertSplit    ".s:vmode."fg=".s:statement." ".s:vmode."=reverse"
@@ -79,7 +83,7 @@ hi link cppStructure cStructure
 hi link cCommentL comment
 hi link Type text
 hi link cppType text
-exe "hi! cStorageClass   ".s:vmode."fg=".s:storage." ".s:vmode."=bold".s:ii
+exe "hi! cStorageClass   ".s:vmode."fg=".s:statement." ".s:vmode."=bold".s:ii
 hi link cInclude cDefine
 exe "hi! cIncluded    ".s:vmode."fg=".s:label." ".s:vmode."=bold"
 hi link cNumber constant
@@ -99,10 +103,11 @@ exe "hi! DiffText                       ".s:vmode."bg=".s:difftext
 exe "hi! DiffAdd                        ".s:vmode."bg=".s:diffadd
 exe "hi! DiffDelete                     ".s:vmode."bg=".s:diffdelete
 hi link Folded StatusLine
-exe "hi! FoldColumn   ".s:vmode."fg=".s:white." ".s:vmode."bg=".s:diffdelete
+exe "hi! FoldColumn   ".s:vmode."fg=".s:border." ".s:vmode."bg=".s:diffdelete
 
 exe "hi! rubyFunction ".s:vmode."fg=".s:highlight." ".s:vmode."bg=".s:label." ".s:vmode."=bold"
 exe "hi! rubyInstanceVariable  ".s:vmode."=".s:i
+exe "hi! rubySymbol ".s:vmode."fg=".s:statement." ".s:vmode."=bold"
 
 exe "hi! javaScriptFuncName ".s:vmode."fg=".s:highlight." ".s:vmode."bg=".s:label." ".s:vmode."=bold"
 
