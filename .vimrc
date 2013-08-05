@@ -25,6 +25,7 @@ augroup customGo
   autocmd BufWritePre *.go Fmt
   autocmd BufWritePost *.go call VimuxRunCommand("go test ./...")
 augroup END
+autocmd FileType go set noexpandtab
 
 " Options for Vimux
 let mapleader = ","
@@ -68,8 +69,9 @@ else
   " Default colors
   set t_Co=16
   let g:solarized_termcolors=16
-  set background=dark
-  colorscheme solarized
+  colorscheme agnostic
+"  set background=dark
+"  colorscheme solarized
 "  colorscheme wrook
 
   " Setting up the mouse for console work
@@ -79,4 +81,7 @@ else
   set mousehide
   set mousemodel=popup
 endif
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
