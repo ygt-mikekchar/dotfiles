@@ -5,6 +5,8 @@ set number
 set fillchars+=vert:\  
 set hlsearch
 
+map <leader>s :execute "noautocmd vimgrep /" . expand("<cword>")  . "/j **/" . expand("%e") <BAR> cw<CR>
+
 " set tab stops to 2 and expand tabs to spaces
 set ts=2
 set sw=2
@@ -26,6 +28,9 @@ augroup customGo
   autocmd BufWritePost *.go call VimuxRunCommand("go test ./...")
 augroup END
 autocmd FileType go set noexpandtab
+
+" Options for Haml
+autocmd FileType haml set noexpandtab
 
 " Options for Vimux
 let VimuxUseNearestPane = 1
