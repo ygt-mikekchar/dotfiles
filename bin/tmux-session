@@ -1,4 +1,0 @@
-#!/bin/bash
-
-tmux -2 -S /tmp/tmux-sessions new -s tmux-session
-

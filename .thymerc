@@ -1,0 +1,13 @@
+set :timer, 25*60
+set :interval, 1
+set :tmux, true
+set :tmux_theme, "#[bg=yellow,fg=%s][%s]#[default]"
+
+option :b, :break, 'start a break' do
+  set :timer, 5*60
+  run
+end
+
+after do |seconds_left|
+  `notify-send -u critical "Thymes Up!"` if seconds_left == 0
+end

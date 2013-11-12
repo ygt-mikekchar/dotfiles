@@ -38,6 +38,10 @@ map <Leader>rp :VimuxPromptCommand<CR>
 map <Leader>rr :VimuxRunLastCommand<CR>
 map <leader>n :NERDTreeToggle<cr>
 
+" Start and stop thyme
+nmap <leader>t :!thyme -d<cr>
+nmap <leader>T :!thyme -s<cr>
+
 " GUI
 " Disable Background Color Erase (BCE) so that color schemes
 " work properly when Vim is used inside tmux and GNU screen.

@@ -1,3 +1,0 @@
-#!/bin/sh
-
-sudo chgrp ygt-guest /tmp/tmux-sessions

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+tmux -2 -S /tmp/sharktank-s attach -t sharktank
+
