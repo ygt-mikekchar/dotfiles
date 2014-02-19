@@ -1,0 +1,27 @@
+TigerVNC Configuration file Version 1.0
+
+ServerName=localhost:5901
+x509ca=
+x509crl=
+SecurityTypes=None,VncAuth,Plain,TLSNone,TLSVnc,TLSPlain,X509None,X509Vnc,X509Plain
+DotWhenNoCursor=1
+AutoSelect=1
+FullColor=1
+LowColorLevel=2
+PreferredEncoding=Tight
+CustomCompressLevel=0
+CompressLevel=2
+NoJPEG=0
+QualityLevel=8
+FullScreen=1
+FullScreenAllMonitors=1
+DesktopSize=
+geometry=
+RemoteResize=1
+ViewOnly=1
+Shared=0
+AcceptClipboard=1
+SendClipboard=1
+SendPrimary=1
+MenuKey=F8
+FullscreenSystemKeys=1
