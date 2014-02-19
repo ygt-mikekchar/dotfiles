@@ -1,7 +1,7 @@
 #!/bin/bash
 script=`readlink -f -- "$1"`
 case "$script" in
-/path/to/project1/*|/path/to/project2/*|/path/to/project3*)
+/home/mikekchar/devel/sb-vouchers/*|/home/mikekchar/google_appengine/*)
     exec python2 "$@"
     ;;
 esac
