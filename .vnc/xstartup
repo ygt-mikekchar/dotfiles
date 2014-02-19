@@ -3,7 +3,7 @@
 unset SESSION_MANAGER
 unset DBUS_SESSION_BUS_ADDRESS
 [ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
-xsetroot -solid grey
-gnome-terminal -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &
+fbsetbg /usr/share/backgrounds/gnome/Waves.jpg
+gnome-terminal &
 chromium --user-data-dir=~/.config/chromium/Profile\ 1&
 fluxbox
