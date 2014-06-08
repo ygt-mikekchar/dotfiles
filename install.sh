@@ -4,7 +4,7 @@
 # am making symlinks
 
 echo "Removing existing files"
-for i in ~/.bashrc ~/.thymerc ~/.tmux.conf ~/.vimrc ~/.config/awesome/* ~/.vnc/*; do
+for i in ~/.bashrc ~/.thymerc ~/.tmux.conf ~/.vimrc ~/.config/awesome/* ~/.vnc/* ~/.xinitrc; do
   echo "  removing $i"
   rm -f $i
 done
@@ -21,7 +21,7 @@ for i in ~/.config ~/.config/awesome ~/.vnc; do
 done
 
 echo "Making symbolic links"
-for i in .bashrc .thymerc .tmux.conf .vimrc; do
+for i in .bashrc .thymerc .tmux.conf .vimrc .xinitrc; do
   echo "  linking $i"
   ln -s `pwd`"/$i" ~
 done
