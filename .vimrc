@@ -38,6 +38,9 @@ map <Leader>rp :VimuxPromptCommand<CR>
 map <Leader>rr :VimuxRunLastCommand<CR>
 map <leader>n :NERDTreeToggle<cr>
 
+" Options for Syntastic
+let g:syntastic_javascript_checkers = ['jsxhint']
+
 " Start and stop thyme
 nmap <leader>t :!thyme -d<cr>
 nmap <leader>T :!thyme -s<cr>

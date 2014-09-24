@@ -5,5 +5,5 @@ unset DBUS_SESSION_BUS_ADDRESS
 [ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
 fbsetbg /usr/share/backgrounds/gnome/Waves.jpg
 gnome-terminal &
-chromium --user-data-dir=~/.config/chromium/Profile\ 1&
+chromium --user-data-dir=~/.config/chromium/VNC&
 fluxbox
