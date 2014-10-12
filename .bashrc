@@ -18,8 +18,6 @@ fi
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
-# Enable bash completion from pass
-source /etc/bash_completion.d/password-store
 
 export EDITOR=vim
 export "PATH=$HOME/.rbenv/bin:$HOME/devel/google_appengine:$HOME/devel/gsutil:$PATH"
