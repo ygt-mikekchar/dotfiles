@@ -4,14 +4,14 @@
 # am making symlinks
 
 echo "Removing existing files"
-for i in ~/.bashrc ~/.bash_aliases ~/.thymerc ~/.tmux.conf ~/.vimrc ~/.vim ~/.config/awesome/* ~/.vnc/* ~/.xinitrc ~/.emacs.d/*; do
+for i in ~/.bashrc ~/.bash_aliases ~/.thymerc ~/.tmux.conf ~/.vimrc ~/.vim ~/.config/awesome/* ~/.vnc/* ~/.xinitrc ~/.emacs.d/* ~/.gnupg/*.conf; do
   echo "  removing $i"
   rm -f $i
 done
 
 echo "Creating directories"
 # Create dirs if they don't already exist
-for i in ~/.config ~/.config/awesome ~/.vnc ~/.emacs.d; do
+for i in ~/.config ~/.config/awesome ~/.vnc ~/.emacs.d ~/.gnupg; do
   if [ -d $i ]; then
     echo "  $i already exists"
   else
@@ -36,6 +36,10 @@ done
 for i in .emacs.d/*; do
   echo "  linking $i"
   ln -s `pwd`"/$i" ~/.emacs.d
+done
+for i in .gnupg/*.conf; do
+  echo "  linking $i"
+  ln -s `pwd`"/$i" ~/.gnupg
 done
 
 # Copying executables because things like startup shells

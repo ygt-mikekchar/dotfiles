@@ -9,5 +9,5 @@ export QT_IM_MODULE=ibus
 ibus-daemon -drx
 start-pulseaudio-x11
 pasystray&
-start-gpg-agent
-awesome
+xset -b
+gpg-agent --daemon awesome

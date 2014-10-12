@@ -24,3 +24,7 @@ export "PATH=$HOME/.rbenv/bin:$HOME/devel/google_appengine:$HOME/devel/gsutil:$P
 export GOPATH="$HOME/devel/go"
 
 eval "$(rbenv init -)"
+
+export GPG_TTY=$(tty)
+echo UPDATESTARTUPTTY | gpg-connect-agent
+
