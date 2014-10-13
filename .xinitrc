@@ -10,5 +10,4 @@ ibus-daemon -drx
 xset -b
 start-pulseaudio-x11
 pasystray&
-xset -b
 gpg-agent --daemon awesome
