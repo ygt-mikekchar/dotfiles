@@ -28,3 +28,6 @@
 [submodule ".vim/bundle/vimux"]
 	path = .vim/bundle/vimux
 	url = https://github.com/benmills/vimux.git
+[submodule ".vim/bundle/vim-ledger"]
+	path = .vim/bundle/vim-ledger
+	url = https://github.com/ledger/vim-ledger.git
