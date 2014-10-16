@@ -19,12 +19,46 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
+# Editor
+# Install:
+#   pacman -S vim
 export EDITOR=vim
-export "PATH=$HOME/.rbenv/bin:$HOME/devel/google_appengine:$HOME/devel/gsutil:$PATH"
-export GOPATH="$HOME/devel/go"
 
-eval "$(rbenv init -)"
+# rbenv
+# Install: 
+#   git clone https://github.com/sstephenson/rbenv.git $HOME/pkg/rbenv
+#   git clone https://github.com/sstephenson/ruby-build.git $HOME/pkg/rbenv/plugins/ruby-build
+if [ -d $HOME/pkg/rbenv ]; then
+  export "PATH=$HOME/pkg/rbenv/bin:$PATH"
+  eval "$(rbenv init -)"
+fi
+
+# Go Language
+# Install:
+#  pacman -S go
+#  mkdir "$HOME/pkg/go"
+export GOPATH="$HOME/pkg/go"
+
+# Google Cloud SDK
+# Install:
+#  curl https://sdk.cloud.google.com | CLOUDSDK_PYTHON=python2.7 bash
+if [ -d $HOME/pkg/google-cloud-sdk ]; then
+  # Make sure we are using the correct version of Python
+  CLOUDSDK_PYTHON=python2.7
+
+  # The next line updates PATH for the Google Cloud SDK.
+  source "$HOME/pkg/google-cloud-sdk/path.bash.inc"
+
+  # The next line enables bash completion for gcloud.
+  source "$HOME/pkg/google-cloud-sdk/completion.bash.inc"
+fi
+
+# GPG Agent
+update_gpg() {
+  echo UPDATESTARTUPTTY | gpg-connect-agent
+}
 
 export GPG_TTY=$(tty)
-echo UPDATESTARTUPTTY | gpg-connect-agent
+update_gpg
+
 
