@@ -22,7 +22,9 @@ fi
 # Editor
 # Install:
 #   pacman -S vim
-export EDITOR=vim
+if [ -f /usr/bin/vim ]; then
+  export EDITOR=vim
+fi
 
 # rbenv
 # Install: 
@@ -42,9 +44,10 @@ export GOPATH="$HOME/pkg/go"
 # Google Cloud SDK
 # Install:
 #  curl https://sdk.cloud.google.com | CLOUDSDK_PYTHON=python2.7 bash
+#  gcloud auth login
 if [ -d $HOME/pkg/google-cloud-sdk ]; then
   # Make sure we are using the correct version of Python
-  CLOUDSDK_PYTHON=python2.7
+  export CLOUDSDK_PYTHON=python2.7
 
   # The next line updates PATH for the Google Cloud SDK.
   source "$HOME/pkg/google-cloud-sdk/path.bash.inc"
