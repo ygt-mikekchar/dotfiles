@@ -61,7 +61,9 @@ update_gpg() {
   echo UPDATESTARTUPTTY | gpg-connect-agent
 }
 
-export GPG_TTY=$(tty)
-update_gpg
-
+# On a system where GPG Agent should be running
+if [ -e $HOME/.gnupg/gpg-agent.env ]; then
+  export GPG_TTY=$(tty)
+  update_gpg
+fi
 
