@@ -31,3 +31,6 @@
 [submodule ".vim/bundle/vim-ledger"]
 	path = .vim/bundle/vim-ledger
 	url = https://github.com/ledger/vim-ledger.git
+[submodule ".vim/bundle/molokai"]
+	path = .vim/bundle/molokai
+	url = ./.vim/bundle/molokai/.git

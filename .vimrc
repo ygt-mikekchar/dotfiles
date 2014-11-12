@@ -19,7 +19,7 @@ let g:rubycomplete_rails = 1
 
 " Options for Go
 filetype off
-set runtimepath+=$GOROOT/misc/vim
+set runtimepath+=/usr/lib/go/misc/vim
 filetype plugin indent on
 syntax on
 augroup customGo
@@ -54,7 +54,7 @@ if &term =~ '256color'
 endif
 
 " Default colors
-set t_Co=16
+set t_Co=256
 colorscheme agnostic
 
 " Setting up the mouse for console work
