@@ -14,6 +14,12 @@ synclient TapButton2=-1
 synclient TapButton3=-1
 pasystray &
 nm-applet -s &
-gpg-agent --daemon awesome
+
+# xmonad doesn't have these things
+feh --bg-scale /usr/share/backgrounds/gnome/Waves.jpg
+xsetroot -cursor_name left_ptr
+stalonetray &
+xmonad
+# gpg-agent --daemon awesome
 # gpg-agent --daemon gnome-session
 # gpg-agent --daemon mutter
