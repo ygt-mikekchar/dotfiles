@@ -37,14 +37,14 @@ fi
 
 # Go Language
 # Install:
-#  pacman -S go
-#  mkdir "$HOME/pkg/go"
+#   pacman -S go
+#   mkdir "$HOME/pkg/go"
 export GOPATH="$HOME/pkg/go"
 
 # Google Cloud SDK
 # Install:
-#  curl https://sdk.cloud.google.com | CLOUDSDK_PYTHON=python2.7 bash
-#  gcloud auth login
+#   curl https://sdk.cloud.google.com | CLOUDSDK_PYTHON=python2.7 bash
+#   gcloud auth login
 if [ -d $HOME/pkg/google-cloud-sdk ]; then
   # Make sure we are using the correct version of Python
   export CLOUDSDK_PYTHON=python2.7
@@ -61,9 +61,21 @@ update_gpg() {
   echo UPDATESTARTUPTTY | gpg-connect-agent
 }
 
-# On a system where GPG Agent should be running
-if [ -e $HOME/.gnupg/gpg-agent.env ]; then
-  export GPG_TTY=$(tty)
-  update_gpg
-fi
+start_gpg() {
+  if pgrep gpg-agent; then
+    pkill gpg-agent
+  else
+    eval $(gpg-agent --pinentry-program /usr/bin/pinentry-curses --daemon)
+    update_gpg
+    echo "Prompts for passwords will appear in this window.  To change,"
+    echo "enter another window and run 'update_gpg'"
+  fi
+}
 
+# On a system where GPG Agent should be running
+if pgrep gpg-agent; then
+  echo "gpg-agent is running, but prompts won't appear in this window.  If you"
+  echo "wish propmpts to appear in this window, run 'update_gpg'"
+else
+  echo "gpg-agent is not running.  If you wish to start it, type 'start_gpg'"
+fi
