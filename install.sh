@@ -4,7 +4,7 @@
 # am making symlinks
 
 echo "Removing existing files"
-for i in ~/.bashrc ~/.bash_aliases ~/.thymerc ~/.tmux.conf ~/.vimrc ~/.vim ~/.config/awesome/* ~/.vnc/* ~/.xinitrc ~/.emacs.d/* ~/.gnupg/*.conf; do
+for i in ~/.bashrc ~/.bash_aliases ~/.thymerc ~/.tmux.conf ~/.vimrc ~/.vim ~/.config/awesome/* ~/.vnc/* ~/.xinitrc ~/.emacs.d/init.el ~/.gnupg/*.conf; do
   echo "  removing $i"
   rm -f $i
 done
