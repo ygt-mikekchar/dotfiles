@@ -1,0 +1,7 @@
+[user]
+	email = mike.charlton@yourgolftravel.com
+	name = Mike Charlton
+[core]
+  excludesfile = /home/mikekchar/.gitignore_local
+[diff]
+  tool = vimdiff
