@@ -1,0 +1,34 @@
+! Xft settings
+Xft.autohint: 0
+Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintslight
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+Xft.dpi: 96
+
+! Terminal settings
+*.font: xft:UmePlus Gothic:size=12:antialias=true
+
+! Colors: New Agnostic Light
+*background: #F7F7D5
+*foreground: #092F34
+*color0: #F7F7D5
+*color1: #AC5E5D
+*color2: #56924F
+*color3: #B29E00
+*color4: #3D6974
+*color5: #966293
+*color6: #5D9585
+*color7: #737373
+*color8: #DADAB3
+*color9: #851531
+*color10: #095A1B
+*color11: #AE4C08
+*color12: #094A8B
+*color13: #69165E
+*color14: #116969
+*color15: #092F34
+
+! URxvt Specific settings
+URxvt.scrollstyle: next
