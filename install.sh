@@ -52,6 +52,6 @@ link_directory() {
 
 pushd home
 link_directory mikekchar /home
-link_file .vim /home/mikekchar
 popd
+link_file .vim /home/mikekchar
 
