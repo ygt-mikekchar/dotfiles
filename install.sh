@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 link_files() {
   local file="$1"
