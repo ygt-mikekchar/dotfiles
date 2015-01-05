@@ -1,57 +1,70 @@
 #!/bin/sh
 
-link_file() {
-  FILE="$1"
-  DEST="$2"
-  if [ -h "$DEST/$FILE" ]; then
-    echo "Removing old $DEST/$FILE"
-    rm "$DEST/$FILE"
-  fi 
-  if [ -e "$DEST/$FILE" ]; then
-    echo "$DEST/$FILE exists and is not a link.  Skipping."
-  else
-    echo "Linking $DEST/$FILE"
-    ln -s `pwd`"/$FILE" "$DEST/$FILE"
+link_files() {
+  local file="$1"
+  local dest="$2"
+
+  if [ -d "$file" ]; then
+    link_directory "$file" "$dest"
+  elif [ -e "$file" ]; then
+      link_file "$file" "$dest"
   fi
 }
 
-link_files() {
-  FILE="$1"
-  DEST="$2"
-  if [ -d "$FILE" ]; then
-    link_directory "$FILE" "$DEST"
+link_file() {
+  local file="$1"
+  local dest="$2"
+
+  if [ -h "$dest/$file" ]; then
+    echo "Removing old $dest/$file"
+    rm "$dest/$file"
+  fi 
+  if [ -e "$dest/$file" ]; then
+    echo "$dest/$file exists and is not a link.  Skipping."
   else
-    link_file "$FILE" "$DEST"
+    echo "Linking $dest/$file"
+    ln -s $(readlink -f "$file") "$dest/$file"
+  fi
+}
+
+create_directory() {
+  local dest=$1
+
+  if [ ! -e "$dest" ]; then
+    echo "Creating directory $dest"
+    mkdir "$dest"
+  else
+    echo "$dest already exists"
   fi
 }
 
 link_directory() {
-  FILE="$1"
-  DEST="$2"
-  if [ ! -e "$DEST/$FILE" ]; then
-    echo "Creating directory $DEST/$FILE"
-    mkdir "$DEST/$FILE"
+  local file="$1"
+  local dest="$2"
+
+  create_directory "$dest/$file"
+  if [ ! -d "$dest/$file" ]; then
+    echo "$dest/$file is not a directory.  Skipping."
   else
-    echo "$DEST/$FILE already exists"
-  fi
-  if [ ! -d "$DEST/$FILE" ]; then
-    echo "$DEST/$FILE is not a directory.  Skipping."
-  else
-    for i in "$FILE"/*; do
-      if [ -e "$i" ]; then
-        link_files "$i" "$DEST"
-      fi
-    done
-    for i in "$FILE"/.[^.]*; do
-      if [ -e "$i" ]; then
-        link_files "$i" "$DEST"
-      fi
-    done
+    link_contents "$file" "$dest/$file"
   fi
 }
 
-pushd home
-link_directory mikekchar /home
-popd
-link_file .vim /home/mikekchar
+link_contents() {
+  local dir="$1"
+  local dest=$(readlink -f "$2")
+
+  pushd $dir
+  for i in *; do
+    link_files "$i" "$dest"
+  done
+  for i in .[^.]*; do
+    link_files "$i" "$dest"
+  done
+  popd
+}
+
+DEST=$HOME
+link_contents home/mikekchar $DEST
+link_file .vim $DEST
 
