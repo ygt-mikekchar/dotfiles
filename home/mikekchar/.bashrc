@@ -56,6 +56,13 @@ if [ -d $HOME/pkg/google-cloud-sdk ]; then
   source "$HOME/pkg/google-cloud-sdk/completion.bash.inc"
 fi
 
+# Cabal
+# Install:
+#   pacman -S cabal
+if [ -d $HOME/.cabal ]; then
+  export PATH="$PATH:$HOME/.cabal/bin"
+fi
+
 # GPG Agent
 update_gpg() {
   echo UPDATESTARTUPTTY | gpg-connect-agent
