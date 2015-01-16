@@ -34,3 +34,6 @@
 [submodule ".vim/bundle/molokai"]
 	path = .vim/bundle/molokai
 	url = ./.vim/bundle/molokai/.git
+[submodule ".vim/bundle/org-mode"]
+	path = .vim/bundle/org-mode
+	url = https://github.com/jwiegley/org-mode.git
