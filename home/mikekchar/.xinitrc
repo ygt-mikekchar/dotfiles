@@ -2,7 +2,11 @@
 
 unset SESSION_MANAGER
 unset DBUS_SESSION_BUS_ADDRESS
-[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
+if [ -d "$HOME/.Xresources.d" ]; then
+  for i in "$HOME"/.Xresources.d/*; do
+    xrdb -merge "$i"
+  done
+fi
 export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
