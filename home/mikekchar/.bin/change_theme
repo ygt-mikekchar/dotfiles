@@ -4,4 +4,6 @@ theme=$1
 
 if [ -f "$HOME/.Xresources.d/colors/$theme" ]; then
   xrdb -override "$HOME/.Xresources.d/colors/$theme"
+else
+  echo "$theme is not in $HOME/.Xresources.d/colors"
 fi
