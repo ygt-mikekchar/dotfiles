@@ -1,0 +1,7 @@
+#! /usr/bin/bash
+
+theme=$1
+
+if [ -f "$HOME/.Xresources.d/colors/$theme" ]; then
+  xrdb -override "$HOME/.Xresources.d/colors/$theme"
+fi
