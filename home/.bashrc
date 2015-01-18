@@ -56,6 +56,13 @@ if [ -d $HOME/pkg/google-cloud-sdk ]; then
   source "$HOME/pkg/google-cloud-sdk/completion.bash.inc"
 fi
 
+# Cabal
+# Install:
+#   pacman -S cabal
+if [ -d $HOME/.cabal ]; then
+  export PATH="$PATH:$HOME/.cabal/bin"
+fi
+
 # GPG Agent
 update_gpg() {
   echo UPDATESTARTUPTTY | gpg-connect-agent
@@ -78,4 +85,11 @@ if pgrep gpg-agent; then
   echo "wish propmpts to appear in this window, run 'update_gpg'"
 else
   echo "gpg-agent is not running.  If you wish to start it, type 'start_gpg'"
+fi
+
+complete -W "agnostic_light linux_terminal sixgun solarized tango" change_theme
+
+# Finally a bin directory to override anything.  Always put this last.
+if [ -d "$HOME/.bin" ]; then
+  export PATH="$HOME"/.bin:"$PATH"
 fi

@@ -1,8 +1,8 @@
 TigerVNC Configuration file Version 1.0
 
 ServerName=localhost:5901
-x509ca=
-x509crl=
+X509CA=
+X509CRL=
 SecurityTypes=None,VncAuth,Plain,TLSNone,TLSVnc,TLSPlain,X509None,X509Vnc,X509Plain
 DotWhenNoCursor=1
 AutoSelect=1
