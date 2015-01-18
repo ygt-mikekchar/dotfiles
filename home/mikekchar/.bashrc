@@ -87,7 +87,7 @@ else
   echo "gpg-agent is not running.  If you wish to start it, type 'start_gpg'"
 fi
 
-complete -W "agnostic_light linux_terminal solarized tango" change_theme
+complete -W "agnostic_light linux_terminal sixgun solarized tango" change_theme
 
 # Finally a bin directory to override anything.  Always put this last.
 if [ -d "$HOME/.bin" ]; then
