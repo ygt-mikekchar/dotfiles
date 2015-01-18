@@ -1,4 +1,0 @@
-#!/bin/bash
-
-TERM=screen-256color tmux -2 -S /tmp/sharktank-s new -s sharktank
-
