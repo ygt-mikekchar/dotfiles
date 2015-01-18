@@ -65,6 +65,6 @@ link_contents() {
 }
 
 DEST=$HOME
-link_contents home/mikekchar $DEST
+link_contents home $DEST
 link_file .vim $DEST
 
