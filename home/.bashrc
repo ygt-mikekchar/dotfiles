@@ -82,12 +82,12 @@ start_gpg() {
 # On a system where GPG Agent should be running
 if pgrep gpg-agent; then
   echo "gpg-agent is running, but prompts won't appear in this window.  If you"
-  echo "wish propmpts to appear in this window, run 'update_gpg'"
+  echo "wish prompts to appear in this window, run 'update_gpg'"
 else
   echo "gpg-agent is not running.  If you wish to start it, type 'start_gpg'"
 fi
 
-complete -W "agnostic_light linux_terminal sixgun solarized tango" change_theme
+complete -W "agnostic_dark agnostic_light linux_terminal terminal solarized tango" change_theme
 
 # Finally a bin directory to override anything.  Always put this last.
 if [ -d "$HOME/.bin" ]; then
