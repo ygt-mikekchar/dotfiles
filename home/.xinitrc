@@ -8,12 +8,10 @@ if [ -d "$HOME/.Xresources.d" ]; then
   done
 fi
 
-# ibus is completely broken on Suzume
-# TODO: Replace with SCIM???
-# export GTK_IM_MODULE=ibus
-# export XMODIFIERS=@im=ibus
-# export QT_IM_MODULE=ibus
-# ibus-daemon -drx
+export GTK_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+export QT_IM_MODULE=fcitx
+fcitx
 
 # Turn off the annoying system bell
 xset -b
