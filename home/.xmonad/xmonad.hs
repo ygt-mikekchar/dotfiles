@@ -11,7 +11,7 @@ myManagementHooks = [
   ]
 
 main = do
-    xmproc <- spawnPipe "/usr/bin/xmobar /home/mikekchar/.xmobarrc"
+    xmproc <- spawnPipe "xmobar $HOME/.xmobarrc"
     xmonad $ defaultConfig
         { manageHook = manageDocks <+> manageHook defaultConfig <+> composeAll myManagementHooks
         , layoutHook = avoidStruts  $  layoutHook defaultConfig
