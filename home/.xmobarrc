@@ -4,7 +4,7 @@ Config {
      font =         "xft:UmePlus Gothic:size=12:bold:antialias=true"
    , bgColor =      "black"
    , fgColor =      "gray"
-   , position =     TopW L 90
+   , position =     TopW L 86
    , border =       BottomB
    , borderColor =  "black"
 

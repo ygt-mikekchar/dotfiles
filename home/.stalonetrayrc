@@ -10,6 +10,6 @@ skip_taskbar
 # Icons are 16 pixels high
 icon_size 16
 kludges force_icons_size
-slot_size 24
+slot_size 23
 # Tell xmonad "Stand back, I got this"
 window_strut none
