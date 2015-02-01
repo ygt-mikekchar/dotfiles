@@ -1,6 +1,8 @@
 if [ -d "$HOME/.Xresources.d" ]; then
   for i in "$HOME"/.Xresources.d/*; do
-    xrdb -merge "$i"
+    if [ -f "$i" ]; then
+      xrdb -merge "$i"
+    fi
   done
 fi
 
