@@ -1,6 +1,7 @@
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageHelpers
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Hooks.EwmhDesktops
 import System.IO
@@ -8,6 +9,8 @@ import System.IO
 myManagementHooks :: [ManageHook]
 myManagementHooks = [
   resource =? "stalonetray" --> doIgnore
+  , className =? "org-igoweb-cgoban-CGoban" --> doFloat
+  , className =? "t-engine" --> doFullFloat
   ]
 
 main = do

@@ -20,6 +20,7 @@ pasystray &
 nm-applet -s &
 
 # xmonad doesn't have these things
+compton -cCfGb -i 0.5 --detect-transient --backend=glx --vsync opengl-swc
 feh --bg-scale /usr/share/backgrounds/gnome/Waves.jpg
 xsetroot -cursor_name left_ptr
 stalonetray &
@@ -28,5 +29,5 @@ if pgrep gpg-agent; then
 fi
 gpg-agent --pinentry-program /usr/bin/pinentry-gtk-2 --daemon xmonad
 # gpg-agent --daemon awesome
-# gpg-agent --daemon gnome-session
+£ gpg-agent --daemon gnome-session
 # gpg-agent --daemon mutter
