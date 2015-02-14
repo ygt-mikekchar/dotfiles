@@ -10,14 +10,14 @@ fi
 export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
-ibus-daemon -drx
+# ibus-daemon -drx
 xset -b
-start-pulseaudio-x11
-synclient TapButton1=-1
-synclient TapButton2=-1
-synclient TapButton3=-1
-pasystray &
-nm-applet -s &
+# start-pulseaudio-x11
+# synclient TapButton1=-1
+# synclient TapButton2=-1
+# synclient TapButton3=-1
+# pasystray &
+# nm-applet -s &
 
 # xmonad doesn't have these things
 compton -cCfGb -i 0.5 --detect-transient --backend=glx --vsync opengl-swc
@@ -27,7 +27,9 @@ stalonetray &
 if pgrep gpg-agent; then
   pkill gpg-agent
 fi
-gpg-agent --pinentry-program /usr/bin/pinentry-gtk-2 --daemon xmonad
+urxvt&
+gpg-agent --pinentry-program /usr/bin/pinentry-gtk-2 --daemon fluxbox
+# gpg-agent --pinentry-program /usr/bin/pinentry-gtk-2 --daemon xmonad
 # gpg-agent --daemon awesome
-£ gpg-agent --daemon gnome-session
+# gpg-agent --daemon gnome-session
 # gpg-agent --daemon mutter
