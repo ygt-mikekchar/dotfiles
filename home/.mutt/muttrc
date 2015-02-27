@@ -55,3 +55,11 @@ set imap_keepalive = 300
 
 # How often to check for new mail (time in seconds).
 set mail_check = 120
+
+# Gmail already archives each sent message.  No need to do it again.
+unset record
+
+set realname=$my_name
+set from=$imap_user
+set smtp_url=smtp://$imap_user@smtp.gmail.com:587"
+set smtp_pass=$imap_pass
