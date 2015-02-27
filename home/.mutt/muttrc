@@ -31,8 +31,8 @@ set folder=imaps://imap.gmail.com/
 set spoolfile=+INBOX
 
 # a list of folders that you have.  Again, the "+" concatenates the folder variable.
-# Currently I am accessing the INBOX forlder and the Munin folder that I created in Gmail.
-mailboxes +INBOX +Munin
+# Currently I am accessing the INBOX forlder and the various folders that I created in Gmail.
+mailboxes +INBOX +Alerts +Nagios
 
 # Store message headers locally to speed things up.
 # If hcache is a folder, Mutt will create sub cache folders for each account which may speeds things up even more.
@@ -59,7 +59,11 @@ set mail_check = 120
 # Gmail already archives each sent message.  No need to do it again.
 unset record
 
+# Set outgoing mail headers
 set realname=$my_name
 set from=$imap_user
+
+# Set up smtp.  Yest the url really is mike.charlton@yourgolftravel.com@smtp.gmail.com:587
+# Gmail also uses the same application password for smtp as for imap
 set smtp_url=smtp://$imap_user@smtp.gmail.com:587"
 set smtp_pass=$imap_pass
