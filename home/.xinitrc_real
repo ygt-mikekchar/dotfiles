@@ -10,9 +10,9 @@ if [ -d "$HOME/.Xresources.d" ]; then
   done
 fi
 
-#export GTK_IM_MODULE=fcitx
-#export XMODIFIERS=@im=fcitx
-#export QT_IM_MODULE=fcitx
+export GTK_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+export QT_IM_MODULE=fcitx
 
 # Turn off button tapping
 synclient TapButton1=-1
@@ -36,7 +36,7 @@ pasystray &
 #wicd-client --tray >/dev/null&
 
 # Use compositing
-# COMPTON --CONFIG "$home"/.COMPTON.CONF -b
+compton --config "$home"/.compton.conf -b
 
 # Set the background picture
 feh --bg-scale /usr/share/archlinux/wallpaper/archlinux-carbonite-knight.jpg
