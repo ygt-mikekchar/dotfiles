@@ -4,14 +4,14 @@ Config {
      font =         "xft:UmePlus Gothic:size=12:bold:antialias=true"
    , bgColor =      "black"
    , fgColor =      "gray"
-   , position =     TopW L 90
+   , position =     TopW L 86
    , border =       BottomB
    , borderColor =  "black"
 
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = "%StdinReader% }{ %battery% | %multicpu% | %memory%         %date% "
+   , template = "%StdinReader% }{ %battery% | %memory%         %date% "
 
    -- general behavior
    , lowerOnStart =     True    -- send to bottom of window stack on start

@@ -1,0 +1,49 @@
+#!/bin/sh
+
+unset SESSION_MANAGER
+unset DBUS_SESSION_BUS_ADDRESS
+if [ -d "$HOME/.Xresources.d" ]; then
+  for i in "$HOME"/.Xresources.d/*; do
+    if [ -f "$i" ]; then
+      xrdb -merge "$i"
+    fi
+  done
+fi
+
+#export GTK_IM_MODULE=fcitx
+#export XMODIFIERS=@im=fcitx
+#export QT_IM_MODULE=fcitx
+
+# Turn off button tapping
+synclient TapButton1=0
+synclient TapButton2=0
+synclient TapButton3=0
+
+# Turn off the annoying system bell
+xset -b
+
+# Use Japanese layout
+setxkbmap -layout jp
+
+# Display the system tray
+stalonetray &
+
+# Start Pulse Audio and
+start-pulseaudio-x11
+pasystray &
+
+# Network management client
+#wicd-client --tray >/dev/null&
+
+# Set the background picture
+feh --bg-scale /usr/share/archlinux/wallpaper/archlinux-aftermath.jpg
+
+# Turn on the mouse pointer
+xsetroot -cursor_name left_ptr
+
+# Kill gpg-agent if it is running so we can replace it
+if pgrep gpg-agent; then
+  pkill gpg-agent
+fi
+
+gpg-agent --pinentry-program /usr/bin/pinentry-gtk-2 --daemon xmonad
