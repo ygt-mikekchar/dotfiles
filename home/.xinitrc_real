@@ -15,9 +15,9 @@ fi
 #export QT_IM_MODULE=fcitx
 
 # Turn off button tapping
-synclient TapButton1=0
-synclient TapButton2=0
-synclient TapButton3=0
+synclient TapButton1=-1
+synclient TapButton2=-1
+synclient TapButton3=-1
 
 # Turn off the annoying system bell
 xset -b
@@ -35,8 +35,11 @@ pasystray &
 # Network management client
 #wicd-client --tray >/dev/null&
 
+# Use compositing
+# COMPTON --CONFIG "$home"/.COMPTON.CONF -b
+
 # Set the background picture
-feh --bg-scale /usr/share/archlinux/wallpaper/archlinux-aftermath.jpg
+feh --bg-scale /usr/share/archlinux/wallpaper/archlinux-carbonite-knight.jpg
 
 # Turn on the mouse pointer
 xsetroot -cursor_name left_ptr
