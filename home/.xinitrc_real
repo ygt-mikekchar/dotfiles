@@ -37,7 +37,7 @@ pasystray &
 #wicd-client --tray >/dev/null&
 
 # Use compositing
-compton --config "$home"/.compton.conf -b
+compton --config "$HOME"/.compton.conf -b
 
 # Set the background picture
 feh --bg-scale /usr/share/archlinux/wallpaper/archlinux-carbonite-knight.jpg
