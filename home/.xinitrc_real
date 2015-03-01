@@ -34,7 +34,7 @@ start-pulseaudio-x11
 pasystray &
 
 # Network management client
-#wicd-client --tray >/dev/null&
+wicd-client --tray >/dev/null&
 
 # Use compositing
 compton --config "$HOME"/.compton.conf -b
