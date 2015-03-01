@@ -87,7 +87,15 @@ else
   echo "gpg-agent is not running.  If you wish to start it, type 'start_gpg'"
 fi
 
-complete -W "agnostic_dark agnostic_light linux_terminal terminal solarized tango" change_theme
+# Completion for colour themes
+complete_change_theme() {
+  pushd "$HOME/.Xresources.d/colors" >/dev/null
+  COMPREPLY=( $( compgen -G "$2*" $2 ) )
+  popd >/dev/null
+  return 0
+}
+
+complete -o nospace -F complete_change_theme change_theme 
 
 # Finally a bin directory to override anything.  Always put this last.
 if [ -d "$HOME/.bin" ]; then
