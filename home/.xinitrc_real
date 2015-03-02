@@ -23,8 +23,8 @@ synclient TapButton3=-1
 # Turn off the annoying system bell
 xset -b
 
-# Use Japanese layout
-setxkbmap -layout jp
+# Onsen uses a British keyboard by default
+setxkbmap -layout gb
 
 # Display the system tray
 stalonetray &
