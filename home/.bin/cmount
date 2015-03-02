@@ -1,0 +1,124 @@
+#/bin/bash
+
+# Embedded awk scripts
+read -d '' find_mounted_awk << 'EOF'
+BEGIN {
+  find_device = 0
+}
+find_device == 1 {
+  phys_device = $1
+  print "/dev/"phys_device, "/dev/mapper/"mapped_device, mountpoint
+  find_device=0
+}
+$2 ~ /254:/ {
+  mapped_device = $1
+  mountpoint = $7
+  find_device = 1
+}
+EOF
+
+read -d '' find_unmounted_awk << 'EOF'
+{
+  phys_device = gensub(/:/, "", "g", $1)
+  uuid = gensub(/UUID=/, "", "g", $2)
+  uuid = gensub(/\"/, "", "g", uuid)
+  print phys_device" "uuid
+}
+EOF
+
+find_mounted() {
+  lsblk -slI 254 | awk "$find_mounted_awk"
+}
+
+find_unmounted() {
+  patterns=`find_mounted | awk '{print "-e "$1}'`
+  exclude_mounted="grep -v $patterns"
+  blkid | grep crypto_LUKS | $exclude_mounted | awk "$find_unmounted_awk"
+}
+
+do_cmount() {
+  device=`find_unmounted | grep $1 | awk '{print $1}'`
+  if [[ $device == "$1" ]]; then
+    if [ -d "$2" ]; then
+      mapped_device=crypt-`basename $1`
+      cryptsetup luksOpen $1 $mapped_device
+      mount -t ext4 /dev/mapper/$mapped_device "$2"
+    else
+      echo "$2 is not a directory"
+      exit 1
+    fi
+  else
+    echo "$1 is not an unmounted crypt device"
+    exit 1
+  fi
+}
+
+do_cumount() {
+  desired_dir=`readlink -e $1`
+  device_line=`find_mounted | grep $desired_dir`
+  device=`echo $device_line | awk '{print $1}'`
+  mapped_device=`echo $device_line | awk '{print $2}'`
+  mount_point=`echo $device_line | awk '{print $3}'`
+  if [[ $mount_point == "$desired_dir" ]]; then
+    sync
+    umount $mount_point
+    if [[ $mapped_device != "" ]]; then
+      cryptsetup luksClose `basename $mapped_device`
+    fi
+  else
+    echo "$1 is not a mount point for a crypt device"
+    exit 1
+  fi
+}
+
+info() {
+  echo "Mounted crypt devices"
+  echo "---------------------"
+  echo " DEVICE    CRYPT DEVICE          MOUNTPOINT"
+  find_mounted
+  echo
+  echo "Unmounted crypt devices"
+  echo "-----------------------"
+  echo " DEVICE    UUID"
+  find_unmounted
+}
+
+cmount_usage() {
+  echo "Usage: cmount [device mount_point]"
+  echo
+  echo "With no arguments, lists all the mounted and unmounted crypt device available."
+  echo "Otherwise attempts to mount the device to the directory given by mount_point."
+}
+
+cumount_usage() {
+  echo "Usage: cumount [mount_point]"
+  echo
+  echo "With no arguments, lists all the mounted and unmounted crypt device available."
+  echo "Otherwise attempts to unmount the device mounted on the directory given by mount_point."
+}
+
+if [[ $0 == "-bash" ]]; then
+  echo Sourcing this file with bash will some day provide completion
+else
+  case `basename $0` in
+    "cmount")
+      if [ "$#" -eq 0 ]; then
+        info
+      elif [ "$#" -eq 2 ]; then
+        do_cmount $1 $2
+      else
+        cmount_usage
+      fi
+      ;;
+    "cumount")
+      if [ "$#" -eq 0 ]; then
+        info
+      elif [ "$#" -eq 1 ]; then
+        do_cumount $1
+      else
+        cumount_usage
+      fi
+      ;;
+    *)
+  esac
+fi
