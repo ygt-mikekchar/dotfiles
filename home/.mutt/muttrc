@@ -67,3 +67,8 @@ set from=$imap_user
 # Gmail also uses the same application password for smtp as for imap
 set smtp_url=smtp://$imap_user@smtp.gmail.com:587"
 set smtp_pass=$imap_pass
+
+
+# Use threaded mode
+set sort=threads
+set strict_threads=yes
