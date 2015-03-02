@@ -1,0 +1,19 @@
+if [ -d "$HOME/.Xresources.d" ]; then
+  for i in "$HOME"/.Xresources.d/*; do
+    if [ -f "$i" ]; then
+      xrdb -merge "$i"
+    fi
+  done
+fi
+
+export GTK_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+export QT_IM_MODULE=fcitx
+
+# Turn off the annoying system bell
+xset -b
+
+# Turn off click by tap
+synclient TapButton1=-1
+synclient TapButton2=-1
+synclient TapButton3=-1
