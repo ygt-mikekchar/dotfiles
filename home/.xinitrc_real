@@ -50,4 +50,4 @@ if pgrep gpg-agent; then
   pkill gpg-agent
 fi
 
-gpg-agent --pinentry-program /usr/bin/pinentry-gtk-2 --daemon xmonad
+gpg-agent --enable-ssh-support --pinentry-program /usr/bin/pinentry-gtk-2 --daemon xmonad

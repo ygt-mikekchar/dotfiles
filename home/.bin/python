@@ -1,9 +1,0 @@
-#!/bin/bash
-script=`readlink -f -- "$1"`
-case "$script" in
-/home/mikekchar/devel/sb-vouchers/*|/home/mikekchar/google_appengine/*|/home/mikekchar/devel/yourteetimes/*)
-    exec python2 "$@"
-    ;;
-esac
-
-exec python3 "$@"
