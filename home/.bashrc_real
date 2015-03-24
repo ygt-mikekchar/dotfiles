@@ -65,14 +65,6 @@ if [ -d $HOME/pkg/google-cloud-sdk ]; then
   source "$HOME/pkg/google-cloud-sdk/completion.bash.inc"
 fi
 
-# Google Appengine SDK
-# Install:
-#  Visit https://cloud.google.com/appengine/downloads#Google_App_Engine_SDK_for_Python
-#  Download the zip file and unzip it in $HOME/pkg
-if [ -d "$HOME"/pkg/google_appengine ]; then
-  export PATH="$PATH":"$HOME"/pkg/google_appengine
-fi
-
 # Cabal
 # Install:
 #   pacman -S cabal
@@ -113,6 +105,16 @@ complete_change_theme() {
 }
 
 complete -o nospace -F complete_change_theme change_theme 
+
+# Completion for terminal themes
+complete_terminal_theme() {
+  pushd "$HOME/.terminal-colors" >/dev/null
+  COMPREPLY=( $( compgen -G "$2*" $2 ) )
+  popd >/dev/null
+  return 0
+}
+
+complete -o nospace -F complete_terminal_theme terminal_theme 
 
 # Finally a bin directory to override anything.  Always put this last.
 if [ -d "$HOME/.bin" ]; then

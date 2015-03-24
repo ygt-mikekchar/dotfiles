@@ -1,0 +1,9 @@
+#! /usr/bin/bash
+
+theme=$1
+
+if [ -f "$HOME/.terminal-colors/$theme" ]; then
+  setcolors "$HOME/.terminal-colors/$theme"
+else
+  echo "$theme is not in $HOME/.terminal-colors"
+fi

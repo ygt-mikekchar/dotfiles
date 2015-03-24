@@ -1,0 +1,4 @@
+#!/bin/sh
+
+resizecons -lines 50
+setfont sun12x22.psfu.gz
