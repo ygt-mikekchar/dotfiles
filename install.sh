@@ -16,13 +16,11 @@ link_file() {
   local dest="$2"
 
   if [ -h "$dest/$file" ]; then
-    echo "Removing old $dest/$file"
     rm "$dest/$file"
   fi 
   if [ -e "$dest/$file" ]; then
-    echo "$dest/$file exists and is not a link.  Skipping."
+    echo "Warning: $dest/$file exists and is not a link.  Skipping link file."
   else
-    echo "Linking $dest/$file"
     ln -s $(readlink -f "$file") "$dest/$file"
   fi
 }
@@ -31,10 +29,7 @@ create_directory() {
   local dest=$1
 
   if [ ! -e "$dest" ]; then
-    echo "Creating directory $dest"
     mkdir "$dest"
-  else
-    echo "$dest already exists"
   fi
 }
 
@@ -44,7 +39,7 @@ link_directory() {
 
   create_directory "$dest/$file"
   if [ ! -d "$dest/$file" ]; then
-    echo "$dest/$file is not a directory.  Skipping."
+    echo "Warning: $dest/$file is not a directory.  Skipping link directory."
   else
     link_contents "$file" "$dest/$file"
   fi
@@ -54,14 +49,14 @@ link_contents() {
   local dir="$1"
   local dest=$(readlink -f "$2")
 
-  pushd $dir
+  pushd $dir >/dev/null
   for i in *; do
     link_files "$i" "$dest"
   done
   for i in .[^.]*; do
     link_files "$i" "$dest"
   done
-  popd
+  popd >/dev/null
 }
 
 copy_files() {
@@ -80,10 +75,8 @@ copy_file() {
   local dest="$2"
 
   if [ -h "$dest/$file" ]; then
-    echo "Removing old link: $dest/$file"
     rm "$dest/$file"
   fi 
-  echo "Copying $dest/$file"
   cp $(readlink -f "$file") "$dest/$file"
 }
 
@@ -93,7 +86,7 @@ copy_directory() {
 
   create_directory "$dest/$file"
   if [ ! -d "$dest/$file" ]; then
-    echo "$dest/$file is not a directory.  Skipping."
+    echo "Warning: $dest/$file is not a directory.  Skipping copy directory."
   else
     copy_contents "$file" "$dest/$file"
   fi
@@ -103,18 +96,17 @@ copy_contents() {
   local dir="$1"
   local dest=$(readlink -f "$2")
 
-  pushd $dir
+  pushd $dir >/dev/null
   for i in *; do
     copy_files "$i" "$dest"
   done
   for i in .[^.]*; do
     copy_files "$i" "$dest"
   done
-  popd
+  popd >/dev/null
 }
 
 DEST=$HOME
 link_contents home $DEST
 copy_contents shims $DEST
 link_file .vim $DEST
-
