@@ -1,5 +1,5 @@
 (deftheme agnostic
-  "Emacs version of the Vim pair programming theme")
+  "Created 2015-04-22.")
 
 (custom-theme-set-faces
  'agnostic
@@ -45,15 +45,7 @@
  '(match ((t (:background "cyan" :foreground "brightwhite"))))
  '(next-error ((t (:inherit region))))
  '(query-replace ((t (:inherit isearch))))
- '(diff-added ((t (:background "green" :foreground "brightwhite"))))
- '(diff-changed ((t (:background "blue" :foreground "brightwhite"))))
- '(diff-removed ((t (:background "red" :foreground "brightwhite"))))
  '(default ((t (:inherit nil :stipple nil :background "unspecified-bg" :foreground "brightwhite" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 1 :width normal :foundry "default" :family "default"))))
- '(ediff-current-diff-A ((t (:background "magenta" :foreground "brightwhite"))))
- '(ediff-current-diff-B ((t (:background "blue" :foreground "brightwhite"))))
- '(ediff-current-diff-C ((t (:background "brightblack" :foreground "brightwhite"))))
- '(ediff-fine-diff-A ((t (:background "red" :foreground "brightwhite"))))
- '(ediff-fine-diff-B ((t (:background "green" :foreground "brightwhite"))))
- '(ediff-fine-diff-C ((t (:background "yellow" :foreground "brightwhite")))))
+ '(linum ((t (:background "brightblue" :foreground "black")))))
 
 (provide-theme 'agnostic)
