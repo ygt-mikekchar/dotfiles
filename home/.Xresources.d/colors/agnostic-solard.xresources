@@ -1,0 +1,41 @@
+! Agnostic SolarD
+! Scheme: Mike Charlton (http://mikekchar@gmail.com)
+
+#define base00 #073642
+#define base01 #859900
+#define base02 #cb4b16
+#define base03 #002b36
+#define base04 #268bd2
+#define base05 #839496
+#define base06 #b58900
+#define base07 #fdf6e3
+#define base08 #6c71c4
+#define base09 #dc322f
+#define base0A #657b83
+#define base0B #93a1a1
+#define base0C #2aa198
+#define base0D #586e75
+#define base0E #d33682
+#define base0F #eee8d5
+
+*foreground:   base07
+*background:   base00
+*cursorColor:  base09
+
+*color0:       base00
+*color1:       base08
+*color2:       base0B
+*color3:       base0A
+*color4:       base0D
+*color5:       base0E
+*color6:       base0C
+*color7:       base05
+
+*color8:       base03
+*color9:       base09
+*color10:      base01
+*color11:      base02
+*color12:      base04
+*color13:      base06
+*color14:      base0F
+*color15:      base07

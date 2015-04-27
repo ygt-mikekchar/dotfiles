@@ -1,0 +1,41 @@
+! Agnotic Pastel
+! Scheme: Mike Charlton (http://mikekchar@gmail.com)
+
+#define base00 #f0e8c4
+#define base01 #095a1b
+#define base02 #ae4c08
+#define base03 #fff8cb
+#define base04 #084078
+#define base05 #998a9d
+#define base06 #69165e
+#define base07 #032428
+#define base08 #c5e5d
+#define base09 #851531
+#define base0A #b99f00
+#define base0B #56924f
+#define base0C #5d9585
+#define base0D #378bb3
+#define base0E #966293
+#define base0F #116969
+
+*foreground:   base07
+*background:   base00
+*cursorColor:  base09
+
+*color0:       base00
+*color1:       base08
+*color2:       base0B
+*color3:       base0A
+*color4:       base0D
+*color5:       base0E
+*color6:       base0C
+*color7:       base05
+
+*color8:       base03
+*color9:       base09
+*color10:      base01
+*color11:      base02
+*color12:      base04
+*color13:      base06
+*color14:      base0F
+*color15:      base07

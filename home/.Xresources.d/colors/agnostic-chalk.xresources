@@ -1,0 +1,41 @@
+! Agnostic Chalk
+! Scheme: Mike Charlton (http://mikekchar@gmail.com)
+
+#define base00 #0b2f2f
+#define base01 #84c793
+#define base02 #d3d281
+#define base03 #052222
+#define base04 #617f9d
+#define base05 #a1a1a1
+#define base06 #96628e
+#define base07 #f7f7d5
+#define base08 #ce2727
+#define base09 #a8575a
+#define base0A #a9a804
+#define base0B #1e8c37
+#define base0C #116969
+#define base0D #1a5da0
+#define base0E #821c84
+#define base0F #5d9585
+
+*foreground:   base07
+*background:   base00
+*cursorColor:  base09
+
+*color0:       base00
+*color1:       base08
+*color2:       base0B
+*color3:       base0A
+*color4:       base0D
+*color5:       base0E
+*color6:       base0C
+*color7:       base05
+
+*color8:       base03
+*color9:       base09
+*color10:      base01
+*color11:      base02
+*color12:      base04
+*color13:      base06
+*color14:      base0F
+*color15:      base07
