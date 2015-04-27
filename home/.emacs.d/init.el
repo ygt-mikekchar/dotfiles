@@ -53,6 +53,7 @@
     (package-install package)))
 
 (require-package 'ledger-mode)
+
 (require-package 'evil)
 (eval-after-load 'evil-ex
   '(evil-ex-define-cmd "b[wipeout]" 'kill-buffer))
