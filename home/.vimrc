@@ -63,3 +63,7 @@ set mouse=a
 set ttymouse=xterm2
 set mousehide
 set mousemodel=popup
+
+" Org mode setup
+let g:org_heading_shade_leading_stars = 0
+let g:org_indent = 0
