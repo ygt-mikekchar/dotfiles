@@ -1,21 +1,21 @@
 ! Agnostic Pastel
 ! Scheme: Mike Charlton (http://mikekchar@gmail.com)
 
-#define base00 #f0e8c4
+#define base00 #e1e4cc
 #define base01 #095a1b
 #define base02 #ae4c08
-#define base03 #fff8cb
+#define base03 #fffee0
 #define base04 #084078
-#define base05 #998a9d
+#define base05 #385357
 #define base06 #69165e
-#define base07 #032428
-#define base08 #c5e5d
+#define base07 #131c1d
+#define base08 #ff404e
 #define base09 #851531
-#define base0A #b99f00
-#define base0B #56924f
-#define base0C #5d9585
-#define base0D #378bb3
-#define base0E #966293
+#define base0A #debf00
+#define base0B #70be71
+#define base0C #79c2ad
+#define base0D #8cb5d2
+#define base0E #bba8d9
 #define base0F #116969
 
 *foreground:   base07
