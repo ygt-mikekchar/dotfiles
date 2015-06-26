@@ -72,3 +72,6 @@ set smtp_pass=$imap_pass
 # Use threaded mode
 set sort=threads
 set strict_threads=yes
+
+# Agnostic colours
+source $HOME/.mutt/colors.agnostic
