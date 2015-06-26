@@ -43,3 +43,6 @@
 [submodule ".vim/bundle/vim-orgmode.git"]
 	path = .vim/bundle/vim-orgmode.git
 	url = git@github.com:jceb/vim-orgmode.git
+[submodule ".vim/bundle/vim-speeddating"]
+	path = .vim/bundle/vim-speeddating
+	url = git@github.com:tpope/vim-speeddating.git
