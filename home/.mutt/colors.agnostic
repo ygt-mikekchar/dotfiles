@@ -1,0 +1,23 @@
+# -*-muttrc-*-
+
+# Colors for use with agnostic
+
+color hdrdefault color12 default
+color quoted color12 default
+color signature color9 default
+color attachment color9 default
+color message default color1
+color error color9  color3
+color indicator brightwhite color8
+color status color11 color4
+color tree default default
+color normal default default
+color markers color9 default
+color search default default
+color tilde color13 default
+color index color12 default ~F
+color index color9 default "~N|~O"
+
+
+# color body brightblack white '\*+[^*]+\*+'
+# color body brightblack white '_+[^_]+_+'
