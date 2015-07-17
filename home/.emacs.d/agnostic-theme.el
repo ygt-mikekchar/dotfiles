@@ -3,7 +3,7 @@
 
 (custom-theme-set-faces
  'agnostic
- '(cursor ((t (:background "brightwhite"))))
+ '(cursor ((t (:background "brightred"))))
  '(fixed-pitch ((t (:family "Monospace"))))
  '(variable-pitch ((t (:family "Sans Serif"))))
  '(escape-glyph ((t (:foreground "brightred" :weight bold))))

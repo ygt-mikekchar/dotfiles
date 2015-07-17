@@ -54,6 +54,7 @@
 
 (require-package 'ledger-mode)
 
+(setq evil-want-C-i-jump nil)
 (require-package 'evil)
 (eval-after-load 'evil-ex
   '(evil-ex-define-cmd "b[wipeout]" 'kill-buffer))
