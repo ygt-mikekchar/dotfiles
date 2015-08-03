@@ -1,0 +1,9 @@
+#!/bin/bash
+
+read -d '' send_notification << 'EOF'
+if $_ =~ /<([^>]+)>(.*)/
+  `notify-send -t 3000 #{$1.shellescape} #{$2.shellescape}`
+end
+EOF
+
+tail -q -n0 -f "$HOME"/.irssi/logs/*/*/*.log | ruby -rshellwords -ne "$send_notification" &
