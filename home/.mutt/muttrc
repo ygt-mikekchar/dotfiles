@@ -63,7 +63,7 @@ unset record
 set realname=$my_name
 set from=$imap_user
 
-# Set up smtp.  Yest the url really is mike.charlton@yourgolftravel.com@smtp.gmail.com:587
+# Set up smtp.  Yes the url really is mike.charlton@yourgolftravel.com@smtp.gmail.com:587
 # Gmail also uses the same application password for smtp as for imap
 set smtp_url=smtp://$imap_user@smtp.gmail.com:587"
 set smtp_pass=$imap_pass
