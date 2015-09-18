@@ -46,3 +46,9 @@
 [submodule ".vim/bundle/vim-speeddating"]
 	path = .vim/bundle/vim-speeddating
 	url = git@github.com:tpope/vim-speeddating.git
+[submodule "home/.emacs.d/lisp/use-package"]
+	path = home/.emacs.d/lisp/use-package
+	url = https://github.com/jwiegley/use-package.git
+[submodule ".vim/bundle/vim-literate-coffeescript"]
+	path = .vim/bundle/vim-literate-coffeescript
+	url = https://github.com/jwhitley/vim-literate-coffeescript.git

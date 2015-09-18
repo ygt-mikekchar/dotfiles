@@ -9,5 +9,5 @@ option :b, :break, 'start a break' do
 end
 
 after do |seconds_left|
-  `notify-send -u critical "Thymes Up!"` if seconds_left == 0
+  `notify-send -t 5 "Thymes Up!"` if seconds_left == 0
 end

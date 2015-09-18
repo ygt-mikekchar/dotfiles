@@ -75,3 +75,8 @@ set strict_threads=yes
 
 # Agnostic colours
 source $HOME/.mutt/colors.agnostic
+
+# Mailcap
+set mailcap_path =$HOME/.mutt/mailcap
+auto_view text/html
+alternative_order text/plain text/html

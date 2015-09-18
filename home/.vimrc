@@ -67,3 +67,7 @@ set mousemodel=popup
 " Org mode setup
 let g:org_heading_shade_leading_stars = 0
 let g:org_indent = 0
+
+" Setup for literate coffee
+autocmd FileType litcoffee runtime ftplugin/coffee.vim
+autocmd FileType cjsx.md runtime ftplugin/coffee.vim
