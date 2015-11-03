@@ -29,6 +29,9 @@ setxkbmap -layout jp
 # Display the system tray
 stalonetray &
 
+# Notification system
+dunst &
+
 # Start Pulse Audio and
 start-pulseaudio-x11
 pasystray &

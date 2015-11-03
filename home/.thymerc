@@ -1,5 +1,5 @@
 set :timer, 25*60
-set :interval, 1
+set :interval, 30
 set :tmux, true
 set :tmux_theme, "#[bg=yellow,fg=%s][%s]#[default]"
 

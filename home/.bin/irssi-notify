@@ -5,5 +5,6 @@ if $_ =~ /<([^>]+)>(.*)/
   `notify-send -t 3000 #{$1.shellescape} #{$2.shellescape}`
 end
 EOF
-
-tail -q -n0 -f "$HOME"/.irssi/logs/*/*/*.log | ruby -rshellwords -ne "$send_notification" &
+year=$(date "+%Y")
+day=$(date "+%m-%d")
+tail -q -n0 -f "$HOME/.irssi/logs/$year/$day/"*/*.log | ruby -rshellwords -ne "$send_notification" &
