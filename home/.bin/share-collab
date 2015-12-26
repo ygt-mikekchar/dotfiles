@@ -1,0 +1,3 @@
+#!/bin/sh
+
+sudo chgrp collab /tmp/collab-s
