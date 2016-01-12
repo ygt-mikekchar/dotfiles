@@ -57,6 +57,9 @@ endif
 set t_Co=256
 colorscheme agnostic
 
+" Don't rename files when making backups (it screws up webpack)
+:set backupcopy=yes
+
 " Setting up the mouse for console work
 set ttyfast
 set mouse=a
