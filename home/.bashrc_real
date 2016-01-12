@@ -44,6 +44,13 @@ if [ -d $HOME/pkg/pyenv ]; then
   eval "$(pyenv init -)"
 fi
 
+# nvm
+if [ -d $HOME/pkg/nvm ]; then
+  export NVM_DIR="$HOME/pkg/nvm"
+  source /usr/share/nvm/nvm.sh
+  source /usr/share/nvm/bash_completion
+fi
+
 # Go Language
 # Install:
 #   pacman -S go
@@ -115,6 +122,9 @@ complete_terminal_theme() {
 }
 
 complete -o nospace -F complete_terminal_theme terminal_theme 
+
+# Fix reparenting issue with java and window manager
+_JAVA_AWT_WM_NONREPARENTING=1
 
 # Finally a bin directory to override anything.  Always put this last.
 if [ -d "$HOME/.bin" ]; then
