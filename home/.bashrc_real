@@ -111,7 +111,7 @@ complete_change_theme() {
   return 0
 }
 
-complete -o nospace -F complete_change_theme change_theme 
+complete -o nospace -F complete_change_theme theme 
 
 # Completion for terminal themes
 complete_terminal_theme() {
