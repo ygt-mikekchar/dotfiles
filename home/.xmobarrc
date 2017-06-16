@@ -1,4 +1,4 @@
-Config { 
+Config {
 
    -- appearance
      font =         "xft:UmePlus Gothic:size=12:bold:antialias=true"
@@ -11,7 +11,7 @@ Config {
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = "%StdinReader% }{ %battery% | %multicpu% | %memory%         %date% "
+   , template = "%StdinReader% }{ %pomodoro%     %battery% | %multicpu% | %memory%         %date% "
 
    -- general behavior
    , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -35,7 +35,7 @@ Config {
    --   The --template option controls how the plugin is displayed. Text
    --   color can be set by enclosing in <fc></fc> tags. For more details
    --   see http://projects.haskell.org/xmobar/#system-monitor-plugins.
-   , commands = 
+   , commands =
 
         -- cpu activity monitor
         [ Run MultiCpu       [ "--template" , "Cpu: <total0>%|<total1>%|<total2>%|<total3>%"
@@ -72,10 +72,13 @@ Config {
                                        , "-i" , "<fc=#006000>Charged</fc>"
                              ] 50
 
-        -- time and date indicator 
+        -- time and date indicator
         --   (%F = y-m-d date, %a = day of week, %T = h:m:s time)
         , Run Date           "<fc=#ABABAB>%F (%a) %T</fc>" "date" 10
-        
+
+        -- Pomodoro Timer
+        , Run CommandReader "~/devel/pymodoro/pymodoro.py" "pomodoro"
+
         -- Get window title from stdin
         , Run StdinReader
 

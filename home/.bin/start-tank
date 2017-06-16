@@ -1,9 +1,9 @@
 #!/bin/bash
 
 session="sharktank"
-socket="$session-s"
+socket="/tmp/$session-s"
 
-tmux -L "$socket" new-session -s "$session" -d
-tmux -L "$socket" bind-key -n M-Y run "tmux -L $socket show-buffer | xsel -ib"
-tmux -L "$socket" bind-key -n M-P run "xsel -o | tmux -L $socket load-buffer -b xbuffer - \; paste-buffer -b xbuffer"
-TERM=screen-256color tmux -2 -L "$socket" attach-session -t "$session"
+tmux -S "$socket" new-session -s "$session" -d
+tmux -S "$socket" bind-key -n M-Y run "tmux -S "$socket" show-buffer | xsel -ib"
+tmux -S "$socket" bind-key -n M-P run "xsel -o | tmux -S "$socket" load-buffer -b xbuffer - \; paste-buffer -b xbuffer"
+TERM=screen-256color tmux -2 -S "$socket" attach-session -t "$session"

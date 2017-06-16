@@ -1,9 +1,16 @@
+;;; agnostic --- A 16 color theme for sharing sessions over tmux
+
+;;; Commentary:
+;;; Please see https://github.com/ygt-mikekchar/agnostic
+
+;;; Code:
 (deftheme agnostic
   "Created 2015-04-22.")
 
 (custom-theme-set-faces
  'agnostic
  '(cursor ((t (:background "brightred"))))
+ '(error  ((t (:foreground "brightred" :weight bold))))
  '(fixed-pitch ((t (:family "Monospace"))))
  '(variable-pitch ((t (:family "Sans Serif"))))
  '(escape-glyph ((t (:foreground "brightred" :weight bold))))
@@ -12,7 +19,7 @@
  '(region ((t (:background "brightblack"))))
  '(shadow ((t (:foreground "brightwhite"))))
  '(secondary-selection ((t (:background "cyan" :foreground "black"))))
- '(trailing-whitespace ((t (:background "brightred"))))
+ '(trailing-whitespace ((t (:background "red"))))
  '(font-lock-builtin-face ((t (:foreground "brightred" :weight bold))))
  '(font-lock-comment-delimiter-face ((default (:inherit (font-lock-comment-face)))))
  '(font-lock-comment-face ((t (:foreground "brightblue"))))
@@ -73,6 +80,112 @@
  '(org-document-info ((t (:foreground "brightcyan"))))
  '(org-document-title ((t (:weight bold :foreground "brightcyan"))))
  '(org-ellipsis ((t (:foreground "brightyellow"))))
+ ;;;;; magit
+ ;;;;;; headings and diffs
+ '(magit-section-highlight           ((t (:background "black"))))
+ '(magit-section-heading             ((t (:foreground "brightyellow" :weight bold))))
+ '(magit-section-heading-selection   ((t (:foreground "brightred" :weight bold))))
+ '(magit-diff-file-heading           ((t (:weight bold))))
+ '(magit-diff-file-heading-highlight ((t (:background "black" :weight bold))))
+ '(magit-diff-file-heading-selection ((t (:background "black"
+                                                      :foreground "brightred" :weight bold))))
+ '(magit-diff-hunk-heading
+   ((t (:background "yellow"))))
+ '(magit-diff-hunk-heading-highlight
+   ((t (:background "yellow"))))
+ '(magit-diff-hunk-heading-selection
+   ((t (:background "yellow"
+                    :foreground "brightred"
+                    :weight bold))))
+ '(magit-diff-lines-heading          ((t (:background "red"
+                                                      :foreground "brightwhite"))))
+ '(magit-diff-context-highlight      ((t (:background "black"))))
+ '(magit-diffstat-added              ((t (:foreground "brightgreen"))))
+ '(magit-diffstat-removed            ((t (:foreground "brightred"))))
+ ;;;;;; popup
+ '(magit-popup-heading             ((t (:foreground "brightcyan" :weight normal))))
+ '(magit-popup-key                 ((t (:foreground "brightcyan" :weight bold))))
+ '(magit-popup-argument            ((t (:foreground "brightcyan" :weight bold))))
+ '(magit-popup-disabled-argument   ((t (:foreground "brightgreen" :weight normal))))
+ '(magit-popup-option-value        ((t (:foreground "brightcyan" :weight bold))))
+ ;;;;;; process
+ '(magit-process-ok    ((t (:foreground "brightgreen" :weight bold))))
+ '(magit-process-ng    ((t (:foreground "brightred"   :weight bold))))
+ ;;;;;; log
+ '(magit-log-author    ((t (:foreground "brightgreen" :weight bold))))
+ '(magit-log-date      ((t (:foreground "brightgreen"))))
+ '(magit-log-graph     ((t (:foreground "brightcyan"))))
+ ;;;;;; sequence
+ '(magit-sequence-pick ((t (:foreground "brightyellow"))))
+ '(magit-sequence-stop ((t (:foreground "brightgreen"))))
+ '(magit-sequence-part ((t (:foreground "brightyellow"))))
+ '(magit-sequence-head ((t (:foreground "brightblue"))))
+ '(magit-sequence-drop ((t (:foreground "brightred"))))
+ '(magit-sequence-done ((t (:foreground "brightgreen"))))
+ '(magit-sequence-onto ((t (:foreground "brightgreen"))))
+ ;;;;;; bisect
+ '(magit-bisect-good ((t (:foreground "brightgreen"))))
+ '(magit-bisect-skip ((t (:foreground "brightyellow"))))
+ '(magit-bisect-bad  ((t (:foreground "brightred"))))
+ ;;;;;; blame
+ '(magit-blame-heading ((t (:background "black" :foreground "brightmagenta"
+                                        :weight bold :slant normal :box (:color "black" :line-width 2)))))
+ '(magit-blame-hash    ((t (:background "black" :foreground "brightmagenta"
+                                        :weight normal :slant normal :box (:color "black" :line-width 2)))))
+ '(magit-blame-name    ((t (:background "black" :foreground "brightmagenta"
+                                        :weight normal :slant normal :box (:color "black" :line-width 2)))))
+ '(magit-blame-date    ((t (:background "black" :foreground "brightmagenta"
+                                        :weight bold :slant normal :box (:color "black" :line-width 2)))))
+ '(magit-blame-summary ((t (:background "black" :foreground "brightblue"
+                                        :weight bold :slant normal :box (:color "black" :line-width 2)))))
+ ;;;;;; references etc.
+ '(magit-dimmed         ((t (:foreground "brightgreen"))))
+ '(magit-hash           ((t (:foreground "brightgreen"))))
+ '(magit-tag            ((t (:foreground "brightcyan" :weight bold))))
+ '(magit-branch-remote  ((t (:foreground "brightgreen"  :weight bold))))
+ '(magit-branch-local   ((t (:foreground "brightblue"   :weight bold))))
+ '(magit-branch-current ((t (:foreground "brightblue"   :weight bold :box t))))
+ '(magit-head           ((t (:foreground "brightblue"   :weight bold))))
+ '(magit-refname        ((t (:background "black" :foreground "brightgreen" :weight bold))))
+ '(magit-refname-stash  ((t (:background "black" :foreground "brightgreen" :weight bold))))
+ '(magit-refname-wip    ((t (:background "black" :foreground "brightgreen" :weight bold))))
+ '(magit-signature-good      ((t (:foreground "brightgreen"))))
+ '(magit-signature-bad       ((t (:foreground "brightred"))))
+ '(magit-signature-untrusted ((t (:foreground "brightyellow"))))
+ '(magit-cherry-unmatched    ((t (:foreground "brightyellow"))))
+ '(magit-cherry-equivalent   ((t (:foreground "brightmagenta"))))
+ '(magit-reflog-commit       ((t (:foreground "brightgreen"))))
+ '(magit-reflog-amend        ((t (:foreground "brightmagenta"))))
+ '(magit-reflog-merge        ((t (:foreground "brightgreen"))))
+ '(magit-reflog-checkout     ((t (:foreground "brightblue"))))
+ '(magit-reflog-reset        ((t (:foreground "brightred"))))
+ '(magit-reflog-rebase       ((t (:foreground "brightmagenta"))))
+ '(magit-reflog-cherry-pick  ((t (:foreground "brightgreen"))))
+ '(magit-reflog-remote       ((t (:foreground "brightcyan"))))
+ '(magit-reflog-other        ((t (:foreground "brightcyan"))))
+ ;;; Flycheck
+ '(flycheck-error            ((t (:background "red" :weight bold))))
+ '(flycheck-warning          ((t (:background "yellow" :foreground "brightblue"))))
+ '(flycheck-info             ((t (:background "blue" :foreground "brightyellow"))))
+ '(flycheck-fringe-error     ((t (:background "yellow" :foreground "brightred"))))
+ '(flycheck-fringe-warning   ((t (:background "yellow" :foreground "brightblue"))))
+ '(flycheck-fringe-info      ((t (:background "yellow" :foreground "brightgreen"))))
+ '(flycheck-error-list-error ((t (:background "red" :weight bold))))
+ '(flycheck-error-list-warning ((t (:background "yellow" :weight bold))))
+ '(flycheck-error-list-info  ((t (:background "green" :weight bold))))
+
+ ;;; Company-mode
+ '(company-scrollbar-bg         ((t (:background "white"))))
+ '(company-scrollbar-fg         ((t (:background "brightred"))))
+ '(company-tooltip              ((t (:foreground "brightwhite" :background "brightblack"))))
+ '(company-tooltip-annotation   ((t (:foreground "brightred"))))
+ '(company-tooltip-common       ((t (:foreground "brightyellow"))))
+ '(company-tooltip-selection    ((t (:background "blue"))))
+ '(company-echo-common          ((t (:foreground "brightred"))))
+ '(company-preview              ((t (:foreground "brightwhite" :background "blue"))))
+ '(company-preview-common       ((t (:foreground "brightred" :background "blue"))))
+ '(company-preview-search       ((t (:background "cyan"))))
  )
 
 (provide-theme 'agnostic)
+;;; agnostic-theme.el ends here

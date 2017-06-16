@@ -12,6 +12,10 @@ set ts=2
 set sw=2
 set expandtab
 
+" Use tabs for java files
+au FileType java setlocal ts=4 sts=4 sw=4 noexpandtab
+au FileType xml setlocal ts=4 sts=4 sw=4 noexpandtab
+
 " turn on ruby evaluation for c-x c-o expansion
 let g:rubycomplete_buffer_loading = 1
 let g:rubycomplete_classes_in_global = 1
@@ -22,11 +26,6 @@ filetype off
 set runtimepath+=/usr/lib/go/misc/vim
 filetype plugin indent on
 syntax on
-augroup customGo
-  autocmd!
-  autocmd BufWritePre *.go Fmt
-  autocmd BufWritePost *.go call VimuxRunCommand("go test ./...")
-augroup END
 autocmd FileType go set noexpandtab
 
 " Options for Haml
@@ -40,6 +39,7 @@ map <leader>n :NERDTreeToggle<cr>
 
 " Options for Syntastic
 let g:syntastic_javascript_checkers = ['jsxhint']
+let g:syntastic_ruby_checkers = ['rubocop']
 
 " Start and stop thyme
 nmap <leader>t :!thyme -d<cr>

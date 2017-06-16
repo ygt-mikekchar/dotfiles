@@ -5,6 +5,7 @@ import XMonad.Hooks.ManageHelpers
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Hooks.EwmhDesktops
 import System.IO
+import qualified Data.Map as M
 
 myManagementHooks :: [ManageHook]
 myManagementHooks = [
@@ -18,7 +19,10 @@ main = do
     xmonad $ defaultConfig
         { manageHook = manageDocks <+> manageHook defaultConfig <+> composeAll myManagementHooks
         , layoutHook = avoidStruts  $  layoutHook defaultConfig
-        , handleEventHook = fullscreenEventHook
+        , handleEventHook = mconcat
+                          [ fullscreenEventHook
+                          , docksEventHook
+                          , handleEventHook defaultConfig ]
         , borderWidth = 2
         , terminal = "urxvt"
         , normalBorderColor = "cccccc"
@@ -28,4 +32,8 @@ main = do
                         , ppTitle = xmobarColor "dodgerblue3" "" . shorten 50
                         }
         , modMask = mod4Mask
+        , keys = \c -> mykeys c `M.union` keys defaultConfig c
         }
+    where
+      mykeys (XConfig {modMask = modm}) = M.fromList $
+          [((modm, xK_n), spawn "touch ~/.pomodoro_session")]

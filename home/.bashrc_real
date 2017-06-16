@@ -27,7 +27,7 @@ if [ -e /usr/bin/vim ]; then
 fi
 
 # rbenv
-# Install: 
+# Install:
 #   git clone https://github.com/sstephenson/rbenv.git $HOME/pkg/rbenv
 #   git clone https://github.com/sstephenson/ruby-build.git $HOME/pkg/rbenv/plugins/ruby-build
 if [ -d $HOME/pkg/rbenv ]; then
@@ -44,11 +44,13 @@ if [ -d $HOME/pkg/pyenv ]; then
   eval "$(pyenv init -)"
 fi
 
-# nvm
-if [ -d $HOME/pkg/nvm ]; then
-  export NVM_DIR="$HOME/pkg/nvm"
-  source /usr/share/nvm/nvm.sh
-  source /usr/share/nvm/bash_completion
+# nodenv
+#  git clone https://github.com/nodenv/nodenv.git $HOME/pkg/nodenv
+#  git clone https://github.com/nodenv/node-build.git $HOME/pkg/nodenv/plugins/node-build
+if [ -d $HOME/pkg/nodenv ]; then
+  export NODENV_ROOT="$HOME/pkg/nodenv"
+  export "PATH=$NODENV_ROOT/bin:$PATH"
+  eval "$(nodenv init -)"
 fi
 
 # Go Language
@@ -121,10 +123,13 @@ complete_terminal_theme() {
   return 0
 }
 
-complete -o nospace -F complete_terminal_theme terminal_theme 
+complete -o nospace -F complete_terminal_theme terminal_theme
 
 # Fix reparenting issue with java and window manager
-_JAVA_AWT_WM_NONREPARENTING=1
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+# Aliases
+alias thyme="$HOME"/pkg/rbenv/versions/2.3.1/bin/thyme
 
 # Finally a bin directory to override anything.  Always put this last.
 if [ -d "$HOME/.bin" ]; then

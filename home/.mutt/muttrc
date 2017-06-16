@@ -32,7 +32,7 @@ set spoolfile=+INBOX
 
 # a list of folders that you have.  Again, the "+" concatenates the folder variable.
 # Currently I am accessing the INBOX forlder and the various folders that I created in Gmail.
-mailboxes +INBOX +Alerts +Nagios
+mailboxes +INBOX +Alerts +Nagios +Munin +Cron +Airbrake +deployments +Travis +Couch\ Errors +Github
 
 # Store message headers locally to speed things up.
 # If hcache is a folder, Mutt will create sub cache folders for each account which may speeds things up even more.

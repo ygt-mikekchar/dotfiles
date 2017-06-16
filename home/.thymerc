@@ -1,11 +1,13 @@
-set :timer, 25*60
-set :interval, 30
+set :timer, 5*60
+set :warning, 1*60
+set :interval, 10
 set :tmux, true
 set :tmux_theme, "#[bg=yellow,fg=%s][%s]#[default]"
+set :warning_color, 'brightred'
 
 option :b, :break, 'start a break' do
-  set :timer, 5*60
-  run
+  set :timer, 1*60
+  @run = true
 end
 
 after do |seconds_left|

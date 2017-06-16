@@ -26,6 +26,9 @@ xset -b
 # Use Japanese layout
 setxkbmap -layout jp
 
+# Change my keyboard setup
+xmodmap "$HOME/.xmodmaprc"
+
 # Display the system tray
 stalonetray &
 

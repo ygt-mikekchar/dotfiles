@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Kill previous invocation
+pkill -f "ruby -rshellwords"
+pkill -f "tail -q -n0"
+
 read -d '' send_notification << 'EOF'
 if $_ =~ /<([^>]+)>(.*)/
   `notify-send -t 3000 #{$1.shellescape} #{$2.shellescape}`

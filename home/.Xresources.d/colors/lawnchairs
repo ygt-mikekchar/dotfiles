@@ -1,0 +1,41 @@
+! Lawnchairs
+! Scheme: Mike Charlton (http://mikekchar@gmail.com)
+
+#define base00 #fffdea
+#define base01 #2c6936
+#define base02 #d05100
+#define base03 #eee8d5
+#define base04 #0b7ad9
+#define base05 #698799
+#define base06 #8e12e8
+#define base07 #223e4e
+#define base08 #f496ab
+#define base09 #99142b
+#define base0A #e7a746
+#define base0B #7ab77f
+#define base0C #7ce3e7
+#define base0D #84c9ff
+#define base0E #e0a5eb
+#define base0F #1a9095
+
+*foreground:   base07
+*background:   base00
+*cursorColor:  base09
+
+*color0:       base00
+*color1:       base08
+*color2:       base0B
+*color3:       base0A
+*color4:       base0D
+*color5:       base0E
+*color6:       base0C
+*color7:       base05
+
+*color8:       base03
+*color9:       base09
+*color10:      base01
+*color11:      base02
+*color12:      base04
+*color13:      base06
+*color14:      base0F
+*color15:      base07
