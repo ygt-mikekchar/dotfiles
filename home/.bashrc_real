@@ -130,6 +130,9 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 
 # Aliases
 alias thyme="$HOME"/pkg/rbenv/versions/2.3.1/bin/thyme
+alias salesup="pushd $HOME/work/vagabond;VAGRANT_USE_RSYNC=1 vagrant up sales;popd"
+alias saleslogin="ssh -Ap 2222 -L 5984:localost:5984 -L 3000:locahost:3000 mikecharlton@localhost"
+alias salesdown="pushd $HOME/work/vagabond;vagrant halt sales;popd"
 
 # Finally a bin directory to override anything.  Always put this last.
 if [ -d "$HOME/.bin" ]; then
