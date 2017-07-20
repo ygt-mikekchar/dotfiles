@@ -38,8 +38,17 @@ map <Leader>rr :VimuxRunLastCommand<CR>
 map <leader>n :NERDTreeToggle<cr>
 
 " Options for Syntastic
-let g:syntastic_javascript_checkers = ['jsxhint']
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_ruby_checkers = ['rubocop']
+let g:syntastic_ruby_rubocop_exec = '/usr/local/bin/rubocop'
 
 " Start and stop thyme
 nmap <leader>t :!thyme -d<cr>
