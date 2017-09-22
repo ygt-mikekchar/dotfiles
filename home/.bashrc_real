@@ -90,7 +90,7 @@ start_gpg() {
   if pgrep gpg-agent; then
     pkill gpg-agent
   else
-    eval $(gpg-agent --pinentry-program /usr/bin/pinentry-curses --daemon)
+    eval $(gpg-agent --enable-ssh-support --pinentry-program /usr/bin/pinentry-curses --log-file /home/mikekchar/gpg-log --daemon)
     update_gpg
     echo "Prompts for passwords will appear in this window.  To change,"
     echo "enter another window and run 'update_gpg'"
@@ -131,8 +131,11 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 # Aliases
 alias thyme="$HOME"/pkg/rbenv/versions/2.3.1/bin/thyme
 alias salesup="pushd $HOME/work/vagabond;VAGRANT_USE_RSYNC=1 vagrant up sales;popd"
-alias saleslogin="ssh -Ap 2222 -L 5984:localost:5984 -L 3000:locahost:3000 mikecharlton@localhost"
+alias spinup="pushd $HOME/work/vagabond;VAGRANT_USE_RSYNC=1 vagrant up spin;popd"
+alias vmlogin="ssh -o \"UserKnownHostsFile=/dev/null\" -o \"StrictHostKeyChecking=no\" -Ap 2222 mikecharlton@localhost"
+alias vmstatus="pushd $HOME/work/vagabond;vagrant status; popd"
 alias salesdown="pushd $HOME/work/vagabond;vagrant halt sales;popd"
+alias spindown="pushd $HOME/work/vagabond;vagrant halt spin;popd"
 
 # Finally a bin directory to override anything.  Always put this last.
 if [ -d "$HOME/.bin" ]; then

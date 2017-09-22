@@ -141,13 +141,15 @@
   :config
   (setq elm-format-on-save t))
 
-(use-package purescript-mode
+(use-package psc-ide
   :ensure t
   :config
   (add-hook 'purescript-mode-hook
-    (lambda()
-      (flycheck-mode)
-      (turn-on-purescript-indentation))))
+  (lambda ()
+    (psc-ide-mode)
+    (company-mode)
+    (flycheck-mode)
+    (turn-on-purescript-indentation))))
 
 (use-package haskell-mode
   :ensure t)
@@ -214,7 +216,7 @@
  '(org-trello-files (quote ("/home/mikekchar/work/trello/sales.org")) nil (org-trello))
  '(package-selected-packages
    (quote
-    (flymake-go company-go go-mode flycheck-haskell haskell-mode company flycheck-elm eslint-fix js2-mode jtags purescript-mode flycheck-purescript org-trello elm-mode enh-ruby-mode magit ledger-mode flycheck evil editorconfig coffee-mode)))
+    (psc-ide flymake-go company-go go-mode flycheck-haskell haskell-mode company flycheck-elm eslint-fix js2-mode jtags purescript-mode flycheck-purescript org-trello elm-mode enh-ruby-mode magit ledger-mode flycheck evil editorconfig coffee-mode)))
  '(ruby-deep-indent-paren nil))
 ;;; init.el ends here
 (custom-set-faces

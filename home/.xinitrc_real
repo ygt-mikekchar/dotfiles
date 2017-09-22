@@ -52,8 +52,12 @@ feh --bg-scale /usr/share/archlinux/wallpaper/archlinux-carbonite-knight.jpg
 xsetroot -cursor_name left_ptr
 
 # Kill gpg-agent if it is running so we can replace it
+# Note: Arch enables gpg-agent in systemd, so you have to disable
+#       it with `systemctl --user disable gpg-agent` along with
+#       all of the sockets (do `sysemctl --user stop gpg-agent` to
+#       see what they are.
 if pgrep gpg-agent; then
   pkill gpg-agent
 fi
 
-gpg-agent --enable-ssh-support --pinentry-program /usr/bin/pinentry-gtk-2 --daemon xmonad
+gpg-agent --enable-ssh-support --pinentry-program /usr/bin/pinentry-gtk-2 --log-file /home/mikekchar/gpg-log --daemon xmonad

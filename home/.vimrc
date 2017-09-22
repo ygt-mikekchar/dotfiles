@@ -62,10 +62,10 @@ colorscheme agnostic
 
 " Setting up the mouse for console work
 set ttyfast
-set mouse=a
-set ttymouse=xterm2
-set mousehide
-set mousemodel=popup
+"set mouse=a
+"set ttymouse=xterm2
+"set mousehide
+"set mousemodel=popup
 
 " Org mode setup
 let g:org_heading_shade_leading_stars = 0
