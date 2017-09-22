@@ -82,12 +82,6 @@
 
 (setq tags-revert-without-query 't)
 
-;; Sync Trello into org mode!
-(use-package org-trello
-  :ensure t
-  :config
-  (custom-set-variables '(org-trello-files '("/home/mikekchar/work/trello/sales.org"))))
-
 (use-package editorconfig
   :ensure t
   :config
