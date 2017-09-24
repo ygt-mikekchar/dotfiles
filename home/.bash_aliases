@@ -1,10 +1,5 @@
 alias vi=vim
 alias ls="ls -F"
-alias mutt-ygt="mutt -F $HOME/.mutt/ygt.muttrc"
-alias mutt-home="mutt -F $HOME/.mutt/home.muttrc"
-
-ssh-id() {
-  killall ssh-agent
-  eval $(ssh-agent)
-  ssh-add "$HOME/.ssh/$1"
-}
+alias rri="ri1.8 -d /usr/share/ri/1.8/system"
+alias ri="ri -d ~/.rdoc"
+alias githist="git for-each-ref --sort=-committerdate refs/heads/"

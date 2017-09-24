@@ -3,6 +3,6 @@
 unset SESSION_MANAGER
 unset DBUS_SESSION_BUS_ADDRESS
 [ -r "$HOME/.Xresources" ] && xrdb "$HOME/.Xresources"
-fbsetbg /usr/share/backgrounds/gnome/Waves.jpg
-chromium --user-data-dir="$HOME/.config/chromium/VNC"&
+#chromium --user-data-dir="$HOME/.config/chromium/VNC"&
+gnome-terminal&
 fluxbox
