@@ -42,6 +42,7 @@
  '(header-line ((t (:background "cyan" :foreground "brightwhite" :weight bold))))
  '(tooltip ((t (:inherit variable-pitch :background "yellow" :foreground "brightwhite"))))
  '(mode-line ((t (:background "white" :foreground "blue" :box (:line-width -1 :style released-button)))))
+ '(mode-line-buffer-id ((t (:background "brightblue" :foreground "brightblack" :weight bold))))
  '(mode-line-highlight ((t (:box (:line-width 2 :color "brightwhite" :style released-button)))))
  '(mode-line-inactive ((t (:inherit mode-line :background "white" :foreground "brightblack" :box (:line-width -1 :color "brightwhite") :weight light))))
  '(isearch ((t (:background "yellow" :foreground "brightwhite"))))
