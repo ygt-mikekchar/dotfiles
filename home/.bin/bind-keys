@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# These get clobbered and have to be reset frequently by hand
+xmodmap $HOME/.xmodmaprc
+xset r rate 200 25
