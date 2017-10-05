@@ -1,9 +1,0 @@
-#!/bin/bash
-
-session="collab"
-socket="/tmp/$session-s"
-
-tmux -S "$socket" new-session -s "$session" -d
-tmux -S "$socket" bind-key -n M-Y run "tmux -S "$socket" show-buffer | xsel -ib"
-tmux -S "$socket" bind-key -n M-P run "xsel -o | tmux -S "$socket" load-buffer -b xbuffer - \; paste-buffer -b xbuffer"
-TERM=screen-256color tmux -2 -S "$socket" attach-session -t "$session"
