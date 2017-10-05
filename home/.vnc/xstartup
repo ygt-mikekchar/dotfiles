@@ -4,5 +4,5 @@ unset SESSION_MANAGER
 unset DBUS_SESSION_BUS_ADDRESS
 [ -r "$HOME/.Xresources" ] && xrdb "$HOME/.Xresources"
 #chromium --user-data-dir="$HOME/.config/chromium/VNC"&
-gnome-terminal&
+xterm&
 fluxbox
