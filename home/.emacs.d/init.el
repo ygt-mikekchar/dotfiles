@@ -20,6 +20,12 @@
 ;; Set up default browser
 (setq browse-url-browser-function 'browse-url-chromium)
 
+;; Useful function for deleting all buffers
+(defun close-all-buffers ()
+  "Delete all active buffers."
+  (interactive)
+  (mapc 'kill-buffer (buffer-list)))
+
 (require 'package)
 (require 'use-package)
 
@@ -107,6 +113,7 @@
   (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
   (define-key evil-ex-map "e " 'ido-find-file)
   (define-key evil-ex-map "b " 'ido-switch-buffer)
+  (defalias #'forward-evil-word #'forward-evil-symbol)
   (evil-mode 1)
   )
 
