@@ -160,9 +160,24 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-cb" 'org-iswitchb)
+
+;; Add time stamp to "DONE" items
 (setq org-log-done t)
+
+;; Paths for agenda and notes
 (setq org-agenda-files (list "~/org" "~/work/journal/mike-journal.org"))
 (setq org-default-notes-file "~/org/notes.org")
+
+;; Always use relative paths for org mode links
+(setq org-link-file-path-type 'relative)
+
+;; Use line numbers for storing links
+(defun link-to-line-number ()
+  "Link to line numbers when making org mode links."
+  (number-to-string (org-current-line)))
+(add-hook 'org-create-file-search-functions
+	  'link-to-line-number)
+
 
 ;; markdown mode
 (use-package markdown-mode
