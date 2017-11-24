@@ -9,6 +9,8 @@
 
 (custom-theme-set-faces
  'agnostic
+ ;;;; basic faces
+ '(default ((t (:inherit nil :stipple nil :background "unspecified-bg" :foreground "brightwhite" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 1 :width normal :foundry "default" :family "default"))))
  '(cursor ((t (:background "brightred"))))
  '(error  ((t (:foreground "brightred" :weight bold))))
  '(fixed-pitch ((t (:family "Monospace"))))
@@ -41,18 +43,50 @@
  '(fringe ((t (:background "brightblack"))))
  '(header-line ((t (:background "cyan" :foreground "brightwhite" :weight bold))))
  '(tooltip ((t (:inherit variable-pitch :background "yellow" :foreground "brightwhite"))))
- '(mode-line ((t (:background "white" :foreground "blue" :box (:line-width -1 :style released-button)))))
- '(mode-line-buffer-id ((t (:background "brightblue" :foreground "brightblack" :weight bold))))
- '(mode-line-highlight ((t (:box (:line-width 2 :color "brightwhite" :style released-button)))))
- '(mode-line-inactive ((t (:inherit mode-line :background "white" :foreground "brightblack" :box (:line-width -1 :color "brightwhite") :weight light))))
+
+ ;;;; search colours
  '(isearch ((t (:background "yellow" :foreground "brightwhite"))))
  '(isearch-fail ((t (:background "red"))))
  '(lazy-highlight ((t (:background "cyan"))))
  '(match ((t (:background "cyan" :foreground "white"))))
  '(next-error ((t (:inherit region))))
  '(query-replace ((t (:inherit isearch))))
- '(default ((t (:inherit nil :stipple nil :background "unspecified-bg" :foreground "brightwhite" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 1 :width normal :foundry "default" :family "default"))))
+
+ ;;;; modeline and border colours
+ '(mode-line ((t (:background "white" :foreground "blue" :box (:line-width -1 :style released-button)))))
+ '(mode-line-buffer-id ((t (:background "brightblue" :foreground "brightblack" :weight bold))))
+ '(mode-line-highlight ((t (:box (:line-width 2 :color "brightwhite" :style released-button)))))
+ '(mode-line-inactive ((t (:inherit mode-line :background "white" :foreground "brightblack" :box (:line-width -1 :color "brightwhite") :weight light))))
  '(linum ((t (:background "white" :foreground "brightblack"))))
+
+ ;;;; popup colours
+ '(popup-scroll-bar-background-face ((t (:background "white"))))
+ '(popup-scroll-bar-foreground-face ((t (:background "brightred"))))
+ '(popup-tip-face ((default (:inherit (tooltip)))))
+ '(popup-face ((t (:foreground "brightwhite" :background "blue"))))
+ '(popup-isearch-match ((t (:background "cyan"))))
+ '(popup-menu-face ((default (:inherit (tooltip)))))
+ '(popup-menu-mouse-face ((t (:background "magenta"))))
+ '(popup-menu-selection-face ((t (:background "blue"))))
+ '(popup-menu-summary-face ((t (:foreground "brightmagenta"))))
+ '(popup-summary-face ((t (:foreground "brightred" :background "blue"))))
+
+ ;;;; diff colours
+ '(diff-added ((t (:background "green"))))
+ '(diff-removed ((t (:background "red"))))
+ '(diff-changed ((t (:background "blue"))))
+
+ ;;;; ediff colours
+ '(ediff-current-diff-A ((t (:background "blue"))))
+ '(ediff-fine-diff-A ((t (:background "yellow"))))
+ '(ediff-even-diff-A ((t (:background "green"))))
+ '(ediff-odd-diff-A ((t (:background "red"))))
+ '(ediff-current-diff-B ((t (:background "brightblue"))))
+ '(ediff-fine-diff-B ((t (:background "brightyellow"))))
+ '(ediff-even-diff-B ((t (:background "brightgreen"))))
+ '(ediff-odd-diff-B ((t (:background "brightred"))))
+
+ ;;;; Org mode colours
  '(org-hide ((t (:inherit (font-lock-comment-face)))))
  '(org-level-1 ((t (:foreground "brightyellow" :weight bold))))
  '(org-level-2 ((t (:foreground "brightyellow"))))
@@ -81,6 +115,7 @@
  '(org-document-info ((t (:foreground "brightcyan"))))
  '(org-document-title ((t (:weight bold :foreground "brightcyan"))))
  '(org-ellipsis ((t (:foreground "brightyellow"))))
+
  ;;;;; magit
  ;;;;;; headings and diffs
  '(magit-section-highlight           ((t (:background "black"))))
@@ -103,19 +138,23 @@
  '(magit-diff-context-highlight      ((t (:background "black"))))
  '(magit-diffstat-added              ((t (:foreground "brightgreen"))))
  '(magit-diffstat-removed            ((t (:foreground "brightred"))))
+
  ;;;;;; popup
  '(magit-popup-heading             ((t (:foreground "brightcyan" :weight normal))))
  '(magit-popup-key                 ((t (:foreground "brightcyan" :weight bold))))
  '(magit-popup-argument            ((t (:foreground "brightcyan" :weight bold))))
  '(magit-popup-disabled-argument   ((t (:foreground "brightgreen" :weight normal))))
  '(magit-popup-option-value        ((t (:foreground "brightcyan" :weight bold))))
+
  ;;;;;; process
  '(magit-process-ok    ((t (:foreground "brightgreen" :weight bold))))
  '(magit-process-ng    ((t (:foreground "brightred"   :weight bold))))
+
  ;;;;;; log
  '(magit-log-author    ((t (:foreground "brightgreen" :weight bold))))
  '(magit-log-date      ((t (:foreground "brightgreen"))))
  '(magit-log-graph     ((t (:foreground "brightcyan"))))
+
  ;;;;;; sequence
  '(magit-sequence-pick ((t (:foreground "brightyellow"))))
  '(magit-sequence-stop ((t (:foreground "brightgreen"))))
@@ -124,10 +163,12 @@
  '(magit-sequence-drop ((t (:foreground "brightred"))))
  '(magit-sequence-done ((t (:foreground "brightgreen"))))
  '(magit-sequence-onto ((t (:foreground "brightgreen"))))
+
  ;;;;;; bisect
  '(magit-bisect-good ((t (:foreground "brightgreen"))))
  '(magit-bisect-skip ((t (:foreground "brightyellow"))))
  '(magit-bisect-bad  ((t (:foreground "brightred"))))
+
  ;;;;;; blame
  '(magit-blame-heading ((t (:background "black" :foreground "brightmagenta"
                                         :weight bold :slant normal :box (:color "black" :line-width 2)))))
@@ -139,6 +180,7 @@
                                         :weight bold :slant normal :box (:color "black" :line-width 2)))))
  '(magit-blame-summary ((t (:background "black" :foreground "brightblue"
                                         :weight bold :slant normal :box (:color "black" :line-width 2)))))
+
  ;;;;;; references etc.
  '(magit-dimmed         ((t (:foreground "brightgreen"))))
  '(magit-hash           ((t (:foreground "brightgreen"))))
@@ -164,7 +206,8 @@
  '(magit-reflog-cherry-pick  ((t (:foreground "brightgreen"))))
  '(magit-reflog-remote       ((t (:foreground "brightcyan"))))
  '(magit-reflog-other        ((t (:foreground "brightcyan"))))
- ;;; Flycheck
+
+ ;;; flycheck
  '(flycheck-error            ((t (:background "red" :weight bold))))
  '(flycheck-warning          ((t (:background "yellow" :foreground "brightblue"))))
  '(flycheck-info             ((t (:background "blue" :foreground "brightyellow"))))
@@ -176,16 +219,16 @@
  '(flycheck-error-list-info  ((t (:background "green" :weight bold))))
 
  ;;; Company-mode
- '(company-scrollbar-bg         ((t (:background "white"))))
- '(company-scrollbar-fg         ((t (:background "brightred"))))
- '(company-tooltip              ((t (:foreground "brightwhite" :background "brightblack"))))
+ '(company-scrollbar-bg         ((default (:inherit (popup-scroll-bar-background-face)))))
+ '(company-scrollbar-fg         ((default (:inherit (popup-scroll-bar-foreground-face)))))
+ '(company-tooltip              ((default (:inherit (tooltip)))))
  '(company-tooltip-annotation   ((t (:foreground "brightred"))))
- '(company-tooltip-common       ((t (:foreground "brightyellow"))))
- '(company-tooltip-selection    ((t (:background "blue"))))
+ '(company-tooltip-common       ((default (:inherit (popup-menu-summary-face)))))
+ '(company-tooltip-selection    ((default (:inherit (popup-menu-selection-face)))))
  '(company-echo-common          ((t (:foreground "brightred"))))
- '(company-preview              ((t (:foreground "brightwhite" :background "blue"))))
- '(company-preview-common       ((t (:foreground "brightred" :background "blue"))))
- '(company-preview-search       ((t (:background "cyan"))))
+ '(company-preview              ((default (:inherit (popup-face)))))
+ '(company-preview-common       ((default (:inherit (popup-summary-face)))))
+ '(company-preview-search       ((default (:inherit (popup-isearch-match)))))
  )
 
 (provide-theme 'agnostic)
