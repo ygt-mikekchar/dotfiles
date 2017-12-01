@@ -2,6 +2,20 @@
 
 unset SESSION_MANAGER
 unset DBUS_SESSION_BUS_ADDRESS
-[ -r "$HOME/.Xresources" ] && xrdb "$HOME/.Xresources"
+if [ -d "$HOME/.Xresources.d" ]; then
+  for i in "$HOME"/.Xresources.d/*; do
+    if [ -f "$i" ]; then
+      xrdb -merge "$i"
+    fi
+  done
+fi
+
+# Turn off the annoying system bell
+xset -b
+
 urxvt&
 exec fluxbox
+
+# Set a nice background
+feh --bg-scale /usr/share/backgrounds/Tie_My_Boat_by_Ray_García.jpg
+
