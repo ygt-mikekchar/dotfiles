@@ -13,7 +13,7 @@ fi
 # Turn off the annoying system bell
 xset -b
 
-urxvt&
+urxvt -tn screen-256color -mod alt -vb&
 exec fluxbox
 
 # Set a nice background
