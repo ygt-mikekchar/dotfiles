@@ -79,6 +79,15 @@
 ;; mumamo color only inline code
 ;;(setq mumamo-chunk-coloring 1)
 
+(use-package flycheck
+  :ensure t
+  :pin melpa-stable
+  :config
+  (setq flycheck-ruby-rubocop-executable "~/pkg/rbenv/versions/2.3.1/bin/rubocop")
+  (flycheck-elm-setup)
+  (setq flycheck-global-modes '(not rust-mode))
+  (global-flycheck-mode))
+
 (use-package jtags
   :ensure t
   :config
@@ -142,6 +151,13 @@
   :config
   (setq elm-format-on-save t))
 
+(use-package racer
+  :ensure t
+  :config
+  (add-hook 'rust-mode-hook #'racer-mode)
+  (add-hook 'racer-mode-hook #'eldoc-mode)
+  (add-hook 'racer-mode-hook #'company-mode))
+
 (use-package psc-ide
   :ensure t
   :config
@@ -159,14 +175,6 @@
   :ensure t
   :config
   (add-hook 'flycheck-mode-hook #'flycheck-haskell-setup))
-
-(use-package flycheck
-  :ensure t
-  :pin melpa-stable
-  :config
-  (setq flycheck-ruby-rubocop-executable "~/pkg/rbenv/versions/2.3.1/bin/rubocop")
-  (flycheck-elm-setup)
-  (global-flycheck-mode))
 
 (use-package magit
   :ensure t)
@@ -217,7 +225,7 @@
  '(org-trello-files (quote ("/home/mikekchar/work/trello/sales.org")) nil (org-trello))
  '(package-selected-packages
    (quote
-    (psc-ide flymake-go company-go go-mode flycheck-haskell haskell-mode company flycheck-elm eslint-fix js2-mode jtags purescript-mode flycheck-purescript org-trello elm-mode enh-ruby-mode magit ledger-mode flycheck evil editorconfig coffee-mode)))
+    (flycheck-rust racer psc-ide flymake-go company-go go-mode flycheck-haskell haskell-mode company flycheck-elm eslint-fix js2-mode jtags purescript-mode flycheck-purescript org-trello elm-mode enh-ruby-mode magit ledger-mode flycheck evil editorconfig coffee-mode)))
  '(ruby-deep-indent-paren nil))
 ;;; init.el ends here
 (custom-set-faces
