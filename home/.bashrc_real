@@ -58,6 +58,7 @@ fi
 #   pacman -S go
 #   mkdir "$HOME/pkg/go"
 export GOPATH="$HOME/pkg/go"
+export PATH="$PATH:/usr/local/go/bin"
 
 # Google Cloud SDK
 # Install:
