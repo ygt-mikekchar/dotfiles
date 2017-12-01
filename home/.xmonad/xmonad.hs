@@ -1,4 +1,5 @@
 import XMonad
+import XMonad.Config
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
@@ -16,13 +17,13 @@ myManagementHooks = [
 
 main = do
     xmproc <- spawnPipe "xmobar $HOME/.xmobarrc"
-    xmonad $ defaultConfig
-        { manageHook = manageDocks <+> manageHook defaultConfig <+> composeAll myManagementHooks
-        , layoutHook = avoidStruts  $  layoutHook defaultConfig
+    xmonad $ def
+        { manageHook = manageDocks <+> manageHook def <+> composeAll myManagementHooks
+        , layoutHook = avoidStruts  $  layoutHook def
         , handleEventHook = mconcat
                           [ fullscreenEventHook
                           , docksEventHook
-                          , handleEventHook defaultConfig ]
+                          , handleEventHook def ]
         , borderWidth = 2
         , terminal = "urxvt"
         , normalBorderColor = "cccccc"
@@ -32,7 +33,7 @@ main = do
                         , ppTitle = xmobarColor "dodgerblue3" "" . shorten 50
                         }
         , modMask = mod4Mask
-        , keys = \c -> mykeys c `M.union` keys defaultConfig c
+        , keys = \c -> mykeys c `M.union` keys def c
         }
     where
       mykeys (XConfig {modMask = modm}) = M.fromList $
