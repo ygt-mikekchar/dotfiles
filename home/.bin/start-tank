@@ -3,8 +3,15 @@
 session="sharktank"
 socket="/tmp/$session-s"
 
+# start up vncserver
+vncserver -geometry 1024x1024 :1
+
 pushd "$HOME/work/sales"
 tmux -S "$socket" new-session -s "$session" -d
 tmux -S "$socket" new-window -t "$session"
 tmux -S "$socket" new-window -t "$session"
+tmux -S "$socket" select-window -t :1
 TERM=screen-256color tmux -2 -S "$socket" attach-session -t "$session"
+
+# kil vncserver again after the tmux session is over
+vncserver -kill :1
