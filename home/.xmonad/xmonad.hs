@@ -25,7 +25,7 @@ main = do
                           , docksEventHook
                           , handleEventHook def ]
         , borderWidth = 2
-        , terminal = "urxvt"
+        , terminal = "urxvt -tn screen-256color"
         , normalBorderColor = "cccccc"
         , focusedBorderColor = "#cd8b00"
         , logHook = dynamicLogWithPP xmobarPP

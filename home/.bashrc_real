@@ -30,11 +30,11 @@ fi
 # Install:
 #   git clone https://github.com/sstephenson/rbenv.git $HOME/pkg/rbenv
 #   git clone https://github.com/sstephenson/ruby-build.git $HOME/pkg/rbenv/plugins/ruby-build
-if [ -d $HOME/pkg/rbenv ]; then
-  export RBENV_ROOT="$HOME/pkg/rbenv"
-  export "PATH=$RBENV_ROOT/bin:$PATH"
-  eval "$(rbenv init -)"
-fi
+# if [ -d $HOME/pkg/rbenv ]; then
+#   export RBENV_ROOT="$HOME/pkg/rbenv"
+#   export "PATH=$RBENV_ROOT/bin:$PATH"
+#   eval "$(rbenv init -)"
+# fi
 
 # pyenv
 #   git clone https://github.com/yyuu/pyenv.git $HOME/pkg/pyenv
@@ -78,7 +78,7 @@ fi
 #   yaourt -S guix
 if [ -d $HOME/.guix-profile ]; then
   export GUIX_LOCPATH=$HOME/.guix-profile/lib/locale
-  xset +fp ~/.guix-profile/share/fonts/truetype
+  #xset +fp ~/.guix-profile/share/fonts/truetype
   GUIX_PROFILE="$HOME/.guix-profile" source "$HOME/.guix-profile/etc/profile"
 fi
 
