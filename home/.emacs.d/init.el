@@ -9,6 +9,19 @@
 ;; the same way that I use Vim.
 
 ;;; Code:
+;; packages
+(require 'package)
+(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
+		    (not (gnutls-available-p))))
+       (proto (if no-ssl "http" "https")))
+  ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
+  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
+  ;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
+  (when (< emacs-major-version 24)
+    ;; For important compatibility libraries like cl-lib
+    (add-to-list 'package-archives '("gnu" . (concat proto "://elpa.gnu.org/packages/")))))
+(package-initialize)
+
 (defvar mkc/emacs-library-dir (expand-file-name (concat user-emacs-directory "lisp"))
     "The directory where various unpackaged libraries are living.")
 
@@ -25,9 +38,6 @@
   "Delete all active buffers."
   (interactive)
   (mapc 'kill-buffer (buffer-list)))
-
-(require 'package)
-(require 'use-package)
 
 ;; disable backup and autosave
 (setq backup-inhibited t)
@@ -59,13 +69,6 @@
 (add-hook 'find-file-hook
           (lambda ()
             (setq default-directory command-line-default-directory)))
-
-;; packages
-(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-			 ("melpa" . "https://melpa.org/packages/")
-			 ("melpa-stable" . "https://melpa.org/packages")
-			 ))
-(package-initialize)
 
 (use-package company
   :ensure t
@@ -157,7 +160,7 @@
 
 (use-package flycheck
   :ensure t
-  :pin melpa-stable
+  :pin melpa
   :config
   (setq flycheck-ruby-rubocop-executable "/usr/local/bin/rubocop")
   (global-flycheck-mode))
