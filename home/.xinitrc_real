@@ -46,7 +46,7 @@ wicd-client --tray >/dev/null&
 compton --config "$HOME"/.compton.conf -b
 
 # Set the background picture
-feh --bg-scale /usr/share/archlinux/wallpaper/archlinux-carbonite-knight.jpg
+feh --bg-scale /usr/share/backgrounds/archlinux/archlinux-carbonite-knight.jpg
 
 # Turn on the mouse pointer
 xsetroot -cursor_name left_ptr
