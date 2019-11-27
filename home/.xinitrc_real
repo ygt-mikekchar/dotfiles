@@ -29,15 +29,15 @@ setxkbmap -layout jp
 # Change my keyboard setup
 xmodmap "$HOME/.xmodmaprc"
 
-# Display the system tray
-stalonetray &
-
-# Notification system
-dunst &
-
 # Start Pulse Audio and
 start-pulseaudio-x11
 pasystray &
+
+# Display the system tray
+# stalonetray &
+
+# Notification system
+dunst &
 
 # Network management client
 wicd-client --tray >/dev/null&
@@ -60,4 +60,4 @@ if pgrep gpg-agent; then
   pkill gpg-agent
 fi
 
-gpg-agent --enable-ssh-support --pinentry-program /usr/bin/pinentry-gtk-2 --log-file /home/mikekchar/gpg-log --daemon xmonad
+gpg-agent --enable-ssh-support --pinentry-program /usr/bin/pinentry-gtk-2 --log-file /home/mikekchar/gpg-log --daemon i3

@@ -8,7 +8,6 @@
 """
 
 import re
-from UserList import UserList
 
 import vim
 from orgmode.liborgmode.base import MultiPurposeList, flatten_list, Direction, get_domobj_range
@@ -17,6 +16,15 @@ from orgmode.liborgmode.orgdate import get_orgdate
 from orgmode.liborgmode.checkboxes import Checkbox, CheckboxList
 from orgmode.liborgmode.dom_obj import DomObj, DomObjList, REGEX_SUBTASK, REGEX_SUBTASK_PERCENT, REGEX_HEADING, REGEX_TAG, REGEX_TODO
 
+from orgmode.py3compat.xrange_compatibility import *
+from orgmode.py3compat.encode_compatibility import *
+from orgmode.py3compat.unicode_compatibility import *
+
+try:
+	from collections import UserList
+except:
+	from UserList import UserList
+	from itertools import ifilter as filter
 
 class Heading(DomObj):
 	u""" Structural heading object """
@@ -97,7 +105,7 @@ class Heading(DomObj):
 		return res
 
 	def __str__(self):
-		return self.__unicode__().encode(u'utf-8')
+		return u_encode(self.__unicode__())
 
 	def __len__(self):
 		# 1 is for the heading's title
@@ -119,7 +127,7 @@ class Heading(DomObj):
 				return True
 			elif not self.active_date and other.active_date:
 				return False
-			elif not self.active_date and not other.active:
+			elif not self.active_date and not other.active_date:
 				return False
 
 	def __le__(self, other):
@@ -215,24 +223,24 @@ class Heading(DomObj):
 					the current heading in serialized order
 		"""
 		if not self.checkboxes:
-			raise StopIteration()
+			return
 
 		c = self.first_checkbox
 		while c:
 			yield c
 			c = c.next_checkbox
-		raise StopIteration()
+		return
 
 	def all_toplevel_checkboxes(self):
 		u""" return all top level checkboxes for current heading """
 		if not self.checkboxes:
-			raise StopIteration()
+			return
 
 		c = self.first_checkbox
 		while c:
 			yield c
 			c = c.next_sibling
-		raise StopIteration()
+		return
 
 	def find_checkbox(self, position=0, direction=Direction.FORWARD,
 		checkbox=Checkbox, connect_with_heading=True):
@@ -253,10 +261,10 @@ class Heading(DomObj):
 		(start, end) = get_domobj_range(content=doc._content, position=position, direction=direction, identify_fun=checkbox.identify_checkbox)
 		# if out of current headinig range, reutrn None
 		heading_end = self.start + len(self) - 1
-		if start > heading_end:
+		if start is not None and start > heading_end:
 			return None
 
-		if end > heading_end:
+		if end is not None and end > heading_end:
 			end = heading_end
 
 		if start is not None and end is None:
@@ -409,12 +417,14 @@ class Heading(DomObj):
 				todo = None
 				title = u''
 				tags = filter(test_not_empty, r[u'tags'].split(u':')) if r[u'tags'] else []
+				tags = list(tags)
 
 				# if there is just one or no word in the heading, redo the parsing
 				mt = REGEX_TAG.match(r[u'title'])
 				if not tags and mt:
 					r = mt.groupdict()
 					tags = filter(test_not_empty, r[u'tags'].split(u':')) if r[u'tags'] else []
+					tags = list(tags)
 				if r[u'title'] is not None:
 					_todo_title = [i.strip() for i in r[u'title'].split(None, 1)]
 					if _todo_title and _todo_title[0] in allowed_todo_states:
@@ -467,24 +477,25 @@ class Heading(DomObj):
 		self.title = REGEX_SUBTASK_PERCENT.sub("[%d%%]" % (percent), self.title)
 		self.document.write_heading(self, including_children=False)
 
-	@classmethod
-	def identify_heading(cls, line):
+	@staticmethod
+	def identify_heading(line):
 		u""" Test if a certain line is a heading or not.
 
-		:line: the line to check
+		Args:
+			line (str): the line to check
 
-		:returns: level
+		Returns:
+			int or None: level of heading or None if line is not heading
 		"""
-		level = 0
-		if not line:
-			return None
-		for i in xrange(0, len(line)):
-			if line[i] == u'*':
-				level += 1
-				if len(line) > (i + 1) and line[i + 1] in (u'\t', u' '):
-					return level
-			else:
-				return None
+		# TODO would it make sense to return 0 for heading level?
+		# TODO add tests e.g. '*** abc', '**', '', '* ', '*\t', '*'
+		for i, item in enumerate(line):
+			if item == '*':
+				continue
+			elif i and item in ('\t', ' '):
+				return i
+			break
+		return None
 
 	@property
 	def is_dirty(self):
@@ -551,146 +562,117 @@ class Heading(DomObj):
 	@property
 	def start(self):
 		u""" Access to the starting line of the heading """
-		if self.document is None:
+		if self.document is None or not self.document.is_dirty:
 			return self._orig_start
 
-		# static computation of start
-		if not self.document.is_dirty:
-			return self._orig_start
-
-		# dynamic computation of start, really slow!
-		def compute_start(h):
-			if h:
-				return len(h) + compute_start(h.previous_heading)
-			return len(self.document.meta_information) if \
+		meta_len = len(self.document.meta_information) if \
 				self.document.meta_information else 0
-		return compute_start(self.previous_heading)
+		return super(Heading, self).start + meta_len
 
-	def level():
-		u""" Access to the heading level """
-		def fget(self):
-			return self._level
+	@DomObj.level.setter
+	def level(self, value):
+		u""" Set the heading level and mark the heading and the document dirty """
+		self._level = int(value)
+		self.set_dirty_heading()
 
-		def fset(self, value):
-			self._level = int(value)
-			self.set_dirty_heading()
+	@property
+	def todo(self):
+		u""" Todo state of current heading. When todo state is set"""
+		# extract todo state from heading
+		return self._todo
 
-		def fdel(self):
-			self.level = None
+	@todo.setter
+	def todo(self, value):
+		# update todo state
+		if type(value) not in (unicode, str, type(None)):
+			raise ValueError(u'Todo state must be a string or None.')
+		if value and not REGEX_TODO.match(value):
+			raise ValueError(u'Found non allowed character in todo state! %s' % value)
+		if not value:
+			self._todo = None
+		else:
+			v = value
+			if type(v) == str:
+				v = u_decode(v)
+			self._todo = v
+		self.set_dirty_heading()
 
-		return locals()
-	level = property(**level())
+	@todo.deleter
+	def todo(self):
+		self.todo = None
 
-	def todo():
-		u""" Todo state of current heading. When todo state is set, it will be
-		converted to uppercase """
-		def fget(self):
-			# extract todo state from heading
-			return self._todo
-
-		def fset(self, value):
-			# update todo state
-			if type(value) not in (unicode, str, type(None)):
-				raise ValueError(u'Todo state must be a string or None.')
-			if value and not REGEX_TODO.match(value):
-				raise ValueError(u'Found non allowed character in todo state! %s' % value)
-			if not value:
-				self._todo = None
-			else:
-				v = value
-				if type(v) == str:
-					v = v.decode(u'utf-8')
-				self._todo = v.upper()
-			self.set_dirty_heading()
-
-		def fdel(self):
-			self.todo = None
-
-		return locals()
-	todo = property(**todo())
-
-	def active_date():
+	@property
+	def active_date(self):
 		u"""
 		active date of the hearing.
 
 		active dates are used in the agenda view. they can be part of the
 		heading and/or the body.
 		"""
-		def fget(self):
-			return self._active_date
+		return self._active_date
 
-		def fset(self, value):
-			self._active_date = value
+	@active_date.setter
+	def active_date(self, value):
+		self._active_date = value
 
-		def fdel(self):
-			self._active_date = None
-		return locals()
-	active_date = property(**active_date())
+	@active_date.deleter
+	def active_date(self):
+		self._active_date = None
 
-	def title():
-		u""" Title of current heading """
-		def fget(self):
-			return self._title.strip()
+	@DomObj.title.setter
+	def title(self, value):
+		u""" Set the title and mark the document and the heading dirty """
+		# TODO these setter should be rewriten to also reuse code from DOM OBJ
+		if type(value) not in (unicode, str):
+			raise ValueError(u'Title must be a string.')
+		v = value
+		if type(v) == str:
+			v = u_decode(v)
+		self._title = v.strip()
+		self.set_dirty_heading()
 
-		def fset(self, value):
-			if type(value) not in (unicode, str):
-				raise ValueError(u'Title must be a string.')
-			v = value
-			if type(v) == str:
-				v = v.decode(u'utf-8')
-			self._title = v.strip()
-			self.set_dirty_heading()
-
-		def fdel(self):
-			self.title = u''
-
-		return locals()
-	title = property(**title())
-
-	def tags():
+	@property
+	def tags(self):
 		u""" Tags of the current heading """
-		def fget(self):
-			return self._tags
+		return self._tags
 
-		def fset(self, value):
-			v = value
-			if type(v) in (unicode, str):
-				v = list(unicode(v))
-			if type(v) not in (list, tuple) and not isinstance(v, UserList):
-				v = list(unicode(v))
-			v = flatten_list(v)
-			v_decoded = []
-			for i in v:
-				if type(i) not in (unicode, str):
-					raise ValueError(u'Found non string value in tags! %s' % unicode(i))
-				if u':' in i:
-					raise ValueError(u'Found non allowed character in tag! %s' % i)
-				i_tmp = i.strip().replace(' ', '_').replace('\t', '_')
-				if type(i) == str:
-					i_tmp = i.decode(u'utf-8')
-				v_decoded.append(i_tmp)
+	@tags.setter
+	def tags(self, value):
+		v = value
+		if type(v) in (unicode, str):
+			v = list(unicode(v))
+		if type(v) not in (list, tuple) and not isinstance(v, UserList):
+			v = list(unicode(v))
+		v = flatten_list(v)
+		v_decoded = []
+		for i in v:
+			if type(i) not in (unicode, str):
+				raise ValueError(u'Found non string value in tags! %s' % unicode(i))
+			if u':' in i:
+				raise ValueError(u'Found non allowed character in tag! %s' % i)
+			i_tmp = i.strip().replace(' ', '_').replace('\t', '_')
+			if type(i) == str:
+				i_tmp = u_decode(i)
+			v_decoded.append(i_tmp)
 
-			self._tags[:] = v_decoded
+		self._tags[:] = v_decoded
 
-		def fdel(self):
-			self.tags = []
+	@tags.deleter
+	def tags(self):
+		self.tags = []
 
-		return locals()
-	tags = property(**tags())
-
-	def checkboxes():
+	@property
+	def checkboxes(self):
 		u""" All checkboxes in current heading """
-		def fget(self):
-			return self._checkboxes
+		return self._checkboxes
 
-		def fset(self, value):
-			self._checkboxes[:] = value
+	@checkboxes.setter
+	def checkboxes(self, value):
+		self._checkboxes[:] = value
 
-		def fdel(self):
-			del self.checkboxes[:]
-
-		return locals()
-	checkboxes = property(**checkboxes())
+	@checkboxes.deleter
+	def checkboxes(self):
+		del self.checkboxes[:]
 
 
 class HeadingList(DomObjList):
@@ -714,6 +696,7 @@ class HeadingList(DomObjList):
 
 	@classmethod
 	def is_heading(cls, obj):
+		# TODO no need to make this or is_domobj a class methods
 		return HeadingList.is_domobj(obj)
 
 	def _get_document(self):
@@ -761,6 +744,7 @@ class HeadingList(DomObjList):
 							orig_len values are not updated.
 		"""
 		# TODO this method should be externalized and moved to the Heading class
+		# TODO should this method work with slice?
 		if type(heading) in (list, tuple) or isinstance(heading, UserList):
 			prev = previous_sibling
 			current = None
@@ -805,60 +789,58 @@ class HeadingList(DomObjList):
 				children=True, taint=taint)
 
 	def __setitem__(self, i, item):
-		if not self.__class__.is_heading(item):
-			raise ValueError(u'Item is not a heading!')
-		if item in self:
-			raise ValueError(u'Heading is already part of this list!')
-		self._add_to_deleted_headings(self[i])
+		if isinstance(i, slice):
+			start, stop, step = i.indices(len(self))
+			items = item
+			if self.__class__.is_heading(items):
+				items = (items, )
+			items = flatten_list(items)
+			for head in items:
+				if not self.__class__.is_heading(head):
+					raise ValueError(u'List contains items that are not a heading!')
 
-		self._associate_heading(
-			item,
-			self[i - 1] if i - 1 >= 0 else None,
-			self[i + 1] if i + 1 < len(self) else None)
-		MultiPurposeList.__setitem__(self, i, item)
-
-	def __setslice__(self, i, j, other):
-		o = other
-		if self.__class__.is_heading(o):
-			o = (o, )
-		o = flatten_list(o)
-		for item in o:
+			self._add_to_deleted_headings(self[i])
+			self._associate_heading(
+				items,
+				self[start - 1] if start - 1 >= 0 else None,
+				self[stop] if stop < len(self) else None)
+			MultiPurposeList.__setitem__(self, i, items)
+		else:
 			if not self.__class__.is_heading(item):
-				raise ValueError(u'List contains items that are not a heading!')
-		i = max(i, 0)
-		j = max(j, 0)
-		self._add_to_deleted_headings(self[i:j])
-		self._associate_heading(
-			o,
-			self[i - 1] if i - 1 >= 0 and i < len(self) else None,
-			self[j] if j >= 0 and j < len(self) else None)
-		MultiPurposeList.__setslice__(self, i, j, o)
+				raise ValueError(u'Item is not a heading!')
+			if item in self:
+				raise ValueError(u'Heading is already part of this list!')
+			self._add_to_deleted_headings(self[i])
+			self._associate_heading(
+				item,
+				self[i - 1] if i - 1 >= 0 else None,
+				self[i + 1] if i + 1 < len(self) else None)
+			MultiPurposeList.__setitem__(self, i, item)
 
 	def __delitem__(self, i, taint=True):
-		item = self[i]
-		if item.previous_sibling:
-			item.previous_sibling._next_sibling = item.next_sibling
-		if item.next_sibling:
-			item.next_sibling._previous_sibling = item.previous_sibling
+		# TODO refactor this item, it works the same in dom_obj except taint?
+		if isinstance(i, slice):
+			items = self[i]
+			if items:
+				first = items[0]
+				last = items[-1]
+				if first.previous_sibling:
+					first.previous_sibling._next_sibling = last.next_sibling
+				if last.next_sibling:
+					last.next_sibling._previous_sibling = first.previous_sibling
+			if taint:
+				self._add_to_deleted_headings(items)
+			MultiPurposeList.__delitem__(self, i)
+		else:
+			item = self[i]
+			if item.previous_sibling:
+				item.previous_sibling._next_sibling = item.next_sibling
+			if item.next_sibling:
+				item.next_sibling._previous_sibling = item.previous_sibling
 
-		if taint:
-			self._add_to_deleted_headings(item)
-		MultiPurposeList.__delitem__(self, i)
-
-	def __delslice__(self, i, j, taint=True):
-		i = max(i, 0)
-		j = max(j, 0)
-		items = self[i:j]
-		if items:
-			first = items[0]
-			last = items[-1]
-			if first.previous_sibling:
-				first.previous_sibling._next_sibling = last.next_sibling
-			if last.next_sibling:
-				last.next_sibling._previous_sibling = first.previous_sibling
-		if taint:
-			self._add_to_deleted_headings(items)
-		MultiPurposeList.__delslice__(self, i, j)
+			if taint:
+				self._add_to_deleted_headings(item)
+			MultiPurposeList.__delitem__(self, i)
 
 	def __iadd__(self, other):
 		o = other

@@ -75,32 +75,32 @@ line tools*.
 
 ------------------------------------------------------------------------------
 Preface~
-   vim-orgmode is a file type plugin for keeping notes, maintaining TODO
-   lists, and doing project planning with a fast and effective plain-text
-   system. It is also an authoring and publishing system.
+  vim-orgmode is a file type plugin for keeping notes, maintaining TODO
+  lists, and doing project planning with a fast and effective plain-text
+  system. It is also an authoring and publishing system.
 
-   This document is a copy of the orgmode-guide for emacs
-   (http://orgmode.org/) with modifications for vim. It contains all basic
-   features and commands, along with important hints for customization.
+  This document is a copy of the orgmode-guide for emacs
+  (http://orgmode.org/) with modifications for vim. It contains all basic
+  features and commands, along with important hints for customization.
 
-   To start create a new file with the extension ".org".
+  To start create a new file with the extension ".org".
 
 ------------------------------------------------------------------------------
 Features~
-  vim-orgmode is still very young but already quite usable. Here is a short
-  list of the already supported features:
+  Currently vim-orgmode does not support all orgmode features but is quite
+  usable. Short list of the already supported features:
 
-  - Cycle visibility of headings
+  - Syntax highlighting
+  - Cycle visibility of headings (folding)
   - Navigate between headings
   - Edit the structure of the document: add, move, promote, denote headings
     and more
   - Hyperlinks within vim-orgmode and outside (files, webpages, etc.)
   - TODO list management
   - Tags for headings
+  - Lists in alphanumeric and bullet item notation and checkbox support
   - Basic date handling
-  - Export (via emacs)
-
-  More features are coming...
+  - Export to other formats (via emacs)
 
 ------------------------------------------------------------------------------
 Default mappings~
@@ -112,26 +112,31 @@ via the 'Org' menu. Most are only usable in command mode.
     <TAB>           - Cycle Visibility
 
   Editing Structure:~
-    <C-S-CR>        - insert heading above
-    <S-CR>          - insert heading below
-    <CR>            - insert heading below
-    <C-CR>          - insert heading above, after children
+    In GVIM:~
+      <C-S-CR>        - insert heading above
+      <S-CR>          - insert heading below, taking over children
+      <CR>            - insert heading below, taking over children
+      <C-CR>          - insert heading above, after children
+    In general Vim Versions:~
+      <localleader>hN  - insert heading above
+      <localleader>hh  - insert heading below, taking over children
+      <localleader>hn  - insert heading above, after children
 
-    m}              - move heading down
-    m{              - move heading up
-    m]]             - move subtree down
-    m[[             - move subtree up
+      m}              - move heading down
+      m{              - move heading up
+      m]]             - move subtree down
+      m[[             - move subtree up
 
-    yah             - yank heading
-    dah             - delete heading
-    yar             - yank subtree
-    dar             - delete subtree
-    p               - paste subtree
+      yah             - yank heading
+      dah             - delete heading
+      yar             - yank subtree
+      dar             - delete subtree
+      p               - paste subtree
 
-    >> or >ah       - demote heading
-    << or <ah       - promote heading
-    >ar             - demote subtree
-    <ar             - promote subtree
+      >> or >ah       - demote heading
+      << or <ah       - promote heading
+      >ar             - demote subtree
+      <ar             - promote subtree
 
   Hyperlinks:~
     gl              - goto link
@@ -147,6 +152,10 @@ via the 'Org' menu. Most are only usable in command mode.
     <S-Right>       - next keyword
     <C-S-Left>      - previous keyword set
     <C-S-Right>     - next keyword set
+
+  Plain List:~
+    <localleader>cl or <CR>     - insert plainlist item below
+    <localleader>cL or <C-S-CR> - insert plainlist item above
 
   Checkboxes:~
     <localleader>cc             - toggle status
@@ -165,12 +174,15 @@ via the 'Org' menu. Most are only usable in command mode.
   Agenda:~
     <localleader>caa    - agenda for the week
     <localleader>cat    - agenda of all TODOs
+    <localleader>caA    - agenda for the week for current buffer
+    <localleader>caT    - agenda of all TODOs for current buffer
 
     Not yet implemented in vim-orgmode~
-    <localleader>caT    - timeline for current buffer
+    <localleader>caL    - timeline of current buffer
 
   Export:~
     <localleader>ep     - export as PDF
+    <localleader>eb     - export as Beamer PDF
     <localleader>eh     - export as HTML
     <localleader>el     - export as LaTeX
 
@@ -192,7 +204,7 @@ Inline markup~
 
   Note:
   - /italic/ is rendered as reverse in most terms (works fine in gVim, though)
-  - +strike-through+ doesn't work on Vim / gVim
+  - +strike-through+ doesn't work on Vim / GVim
   - the non-standard `code' markup is also supported
   - =code= and ~verbatim~ are also supported as block-level markup, see below.
 
@@ -210,27 +222,24 @@ INSTALLATION AND UPGRADE                                 *orgguide-installation*
 >
     :so %
 <
-
   ATTENTION: All .pyc files of former versions of vim-orgmode need to be
   deleted beforehand!
 
   Add the following line to your .vimrc file to ensure that filetype plugins
   are loaded properly:
 >
-  filetype plugin indent on
+    filetype plugin indent on
 <
+  Installation can also be done with plugin managers that automatically pull
+  dependencies i.e. vim-plug (https://github.com/junegunn/vim-plug), dein.vim
+  (https://github.com/Shougo/dein.vim).
 
-  Please install the Universal Text Linking
-  (http://www.vim.org/scripts/script.php?script_id=293) add-on, otherwise
-  hyperlinks won't work. Other plugins that integrate well with vim orgmode
-  are listed in the following section.
-
-  Note: If you want to insert timestamp by using a calendar, you should
-  install calendar(http://www.vim.org/scripts/script.php?script_id=52) to
-  enable this feature.
+  NOTE: For some functionality vim-orgmode relies on external plugins which
+  are mentioned in suggested plugins.
 
 ------------------------------------------------------------------------------
 Suggested plugins~
+
   Universal Text Linking~
     (http://www.vim.org/scripts/script.php?script_id=293) general support for
     text linking. The hyperlinks feature of vim-orgmode depends on this
@@ -267,12 +276,13 @@ Suggested plugins~
     Easy management of multiple vim plugins.
 
   calendar~
-    (http://www.vim.org/scripts/script.php?script_id=52)
+    (https://github.com/mattn/calendar-vim)
     This plugin will create a calendar window for timestamp insertion.
 
   SyntaxRange~
     (http://www.vim.org/scripts/script.php?script_id=4168)
-    Use proper syntax highlighting for code blocks such as: >
+    Use proper syntax highlighting for code blocks such as:
+>
     #+BEGIN_SRC cpp
     int i = 1;
     #+END_SRC
@@ -299,6 +309,7 @@ Outlines~
 
 ------------------------------------------------------------------------------
 Headlines~
+
   Headlines define the structure of an outline tree. The headlines in
   vim-orgmode start with one or more stars, on the left margin. For example:
 >
@@ -316,11 +327,12 @@ Headlines~
   that has whitespace followed by a single star as headline starters.
   |g:org_heading_shade_leading_stars| describes a setup to realize this.
 
-  Body text under headings is indented by default, but you can control this
-  with the  |g:org_indent| variable.
+  Body text under headings is not indented by default, but you can control
+  this  with the  |g:org_indent| variable.
 
 ------------------------------------------------------------------------------
 Text objects~
+
   Vim offers a mighty feature called |text-objects|. A text object is bound to
   a certain character sequence that can be used in combination with all kinds
   of editing and selection tasks.
@@ -535,6 +547,7 @@ Internal links~
 
 ------------------------------------------------------------------------------
 External links~
+
   |utl| supports links to files and websites. Others can be added by extending
   utl (see |utl-smartSamples|).  External links are URL-like locators. They
   start with a short identifying string followed by a colon. There can be no
@@ -554,6 +567,7 @@ External links~
 
 ------------------------------------------------------------------------------
 Handling links~
+
   vim-orgmode provides methods to create a link in the correct syntax, to
   insert it into an org file, and to follow the link.
 
@@ -672,7 +686,7 @@ Multi-state workflows~
   of which subsequence should be used for a given entry. The example also
   shows how to define keys for fast access of a particular state, by
   adding a letter in parenthesis after each keyword - you will be prompted
-  for the key after pressing ,d.
+  for the key after pressing <LocalLeader>d.
 
                                                        *orgguide-<LocalLeader>d*
   <LocalLeader>d        prompt for fast access of a todo state
@@ -702,6 +716,7 @@ Priorities~
 
 ------------------------------------------------------------------------------
 Breaking tasks down into subtasks~
+  Not fully implemented in vim-orgmode~
 
 It is often advisable to break down large tasks into smaller, manageable
 subtasks. You can do this by creating an outline tree below a TODO item,
@@ -820,7 +835,7 @@ Timestamps~
   A timestamp is a specification of a date (possibly with a time or a range of
   times) in a special format, either <2003-09-16 Tue> or <2003-09-16 Tue
   09:39> or <2003-09-16 Tue 12:00-12:30>. A timestamp can appear anywhere in
-  the headline or body of an org tree entry.  Its presence causes entries to
+  the headline or body of an org tree entry. Its presence causes entries to
   be shown on specific dates in the agenda (see section |orgguide-agenda|). We
   distinguish:
 
@@ -890,8 +905,11 @@ Creating timestamps~
   When vim-orgmode prompts for a date/time, it will accept any string
   containing some date and/or time information, and intelligently interpret
   the string, deriving defaults for unspecified information from the current
-  date and time. See the manual for more information on how exactly the
-  date/time prompt works.
+  date and time.
+    Example~
+      If the current date is <2016-06-14 Tue>, entering +3 at the prompt will
+      insert the date <2016-06-17 Fri>, entering sat will insert date
+      <2016-06-18 Sat>
 
   You can also select a date in the pop-up calendar.
   NOTE: The plugin 'calendar' should be installed for this feature.
@@ -1067,6 +1085,7 @@ Currently, the export to pdf, html, latex and markdown is supported via the
 following commands and the 'export' menu:
 >
   :OrgExportToPDF
+  :OrgExportToBeamerPDF
   :OrgExportToHTML
   :OrgExportToLaTeX
   :OrgExportToMarkdown
@@ -1166,9 +1185,35 @@ Remapping shortcuts~
 <
 
 ------------------------------------------------------------------------------
-Syntax highlighting and indentation~
+Alternate behavior~
+  vim-orgmode provides some variables for users to customize certain behaviors
+  of their orgmode if so desired.
+
+                                                      *g:org_prefer_insert_mode*
+  Default: 1
+  Defines if vim-orgmode will automatically jump into Insert Mode after a new
+  heading/checkbox/plainlist instance is created through keyboard bindings. If
+  value is set to 0, orgmode will retain it's original mode.
+  Example:
+>
+  let org_prefer_insert_mode = 1
+<
+
+------------------------------------------------------------------------------
+syntax highlighting and indentation~
   Syntax highlighting is customizable to fit nicely with the user's
   colorscheme.
+
+                                                      *g:org_aggressive_conceal*
+  Default: 0
+  Defines if format indicating characters for inline markups(bold, italic,
+  inline code, verbatims, in-file hyper-link, etc.) are displayed. Format
+  indicating characters will be concealed if value is `1`, rendering a much
+  cleaner view. However, since this feature is newly introduced(<2016-04-08>)
+  and still need further testing. It is inactive by default. Example:
+>
+  let g:org_aggressive_conceal = 0
+<
 
                                                 *g:org_heading_highlight_colors*
   Default: ['Title', 'Constant', 'Identifier', 'Statement', 'PreProc', 'Type',
@@ -1181,7 +1226,7 @@ Syntax highlighting and indentation~
 
                                                 *g:org_heading_highlight_levels*
   Default: len(g:org_heading_highlight_colors)
-  Definie the number of levels of highlighting. If this number is bigger than
+  Define the number of levels of highlighting. If this number is bigger than
   the list of colors defined in of g:org_heading_highlight_colors the colors
   of g:org_heading_highlight_colors get repeated. Example:
 >
@@ -1217,11 +1262,11 @@ Syntax highlighting and indentation~
 <
 
                                                                   *g:org_indent*
-  Default: 1
-  Defines if body text is indented. By default text is indented according to
-  heading level (heading.level + 1). You can disable it by setting:
+  Default: 0
+  Defines if body text is indented. By default, text is not indented according
+  to heading level (heading.level + 1). You can enable it by setting:
 >
-  let g:org_indent = 0
+  let g:org_indent = 1
 <
 
   Syntax Highlighting Examples~
@@ -1296,7 +1341,7 @@ Structure and Source Code~
     ├── tests                   - Tests to verify the consistency and
     │                             correctness of orgmode and the plugins
     ├── build_vmb.vim           - Build file for creating a Vimball
-    ├── install-vbm.vim         - Local installation of vbm via make target
+    ├── install-vmb.vim         - Local installation of vmb via make target
     ├── LICENSE                 - License Information
     ├── README.org              - README :)
     └── Makefile                - make commands
@@ -1408,10 +1453,10 @@ Building a Vimball~
   following command in the root folder of this plugin.  Please make sure that
   vim is installed on your computer:
 >
-  make vbm
+  make vmb
 <
 
-  For installing the plugin form the resulting orgmode.vbm.gz file, please
+  For installing the plugin form the resulting orgmode.vmb.gz file, please
   refer to the Installation section.
 
 ------------------------------------------------------------------------------

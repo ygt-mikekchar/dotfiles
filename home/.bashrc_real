@@ -77,12 +77,12 @@ if [ -d $HOME/pkg/google-cloud-sdk ]; then
   source "$HOME/pkg/google-cloud-sdk/completion.bash.inc"
 fi
 
-# Guix
-#   yaourt -S guix
-if [ -d $HOME/.guix-profile ]; then
-  export GUIX_LOCPATH=$HOME/.guix-profile/lib/locale
-  #xset +fp ~/.guix-profile/share/fonts/truetype
-  GUIX_PROFILE="$HOME/.guix-profile" source "$HOME/.guix-profile/etc/profile"
+# Rustup
+# Install:
+# pacman -S rustup
+if [ -d $HOME/.cargo/bin ]; then
+  export "PATH=.cargo/bin:$PATH"
+  # rustup completions bash > ~/.local/share/bash-completion/completions/rustup
 fi
 
 # GPG Agent

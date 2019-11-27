@@ -76,7 +76,7 @@
   :ensure t
   :config
   (global-company-mode)
-  (add-to-list 'company-backends '(company-elm company-etags)))
+  (add-to-list 'company-backends '(company-etags)))
 
 ;; This doesn't really play nicely with the latest emacs :-(
 ;; gwt mode for java files
@@ -88,11 +88,8 @@
 
 (use-package flycheck
   :ensure t
-  :pin melpa-stable
   :config
   (setq flycheck-ruby-rubocop-executable "~/pkg/rbenv/versions/2.3.1/bin/rubocop")
-  (flycheck-elm-setup)
-  (setq flycheck-global-modes '(not rust-mode))
   (global-flycheck-mode))
 
 (use-package jtags
@@ -170,8 +167,18 @@
   (add-hook 'mmm-mode-hook
             (lambda ()
               (add-hook 'vue-mode-hook 'flycheck-mode)
+              (add-hook 'js2-mode-hook 'add-node-modules-path)
               (set-face-background 'mmm-default-submode-face nil)))
   )
+
+(use-package rust-mode
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
+  (eval-after-load 'rust-mode
+    (lambda ()
+      (setq rust-format-on-save t)
+      (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))))
 
 (use-package go-mode
   :ensure t
@@ -183,42 +190,16 @@
 (use-package coffee-mode
   :ensure t)
 
-(use-package elm-mode
-  :ensure t
-  :config
-  (setq elm-format-on-save t))
-
-(use-package racer
-  :ensure t
-  :config
-  (add-hook 'rust-mode-hook #'racer-mode)
-  ;(add-hook 'racer-mode-hook #'eldoc-mode)
-  ;(add-hook 'racer-mode-hook #'company-mode)
-  )
-
-(use-package psc-ide
-  :ensure t
-  :config
-  (add-hook 'purescript-mode-hook
-  (lambda ()
-    (psc-ide-mode)
-    (company-mode)
-    (flycheck-mode)
-    (turn-on-purescript-indentation))))
-
-(use-package haskell-mode
-  :ensure t)
-
-(use-package flycheck-haskell
-  :ensure t
-  :config
-  (add-hook 'flycheck-mode-hook #'flycheck-haskell-setup))
-
 (use-package magit
   :ensure t)
+
+(setq evil-magit-state 'motion)
+(require 'evil-magit)
 (with-eval-after-load 'magit
-  (load "~/devel/evil-magit/evil-magit.el"))
-(global-set-key "\C-xg" 'magit-status)
+  (lambda ()
+    (global-set-key "\C-xg" 'magit-status)
+    (setq evil-magit-state 'motion)
+    (require 'evil-magit)))
 
 ;; Set up some global keybindings for Org mode
 (global-set-key "\C-cl" 'org-store-link)
@@ -269,7 +250,7 @@
  '(org-trello-files (quote ("/home/mikekchar/work/trello/sales.org")) nil (org-trello))
  '(package-selected-packages
    (quote
-    (add-node-modules-path markdown-mode vue-mode web-mode flycheck-rust racer psc-ide flymake-go company-go go-mode flycheck-haskell haskell-mode company flycheck-elm eslint-fix js2-mode jtags purescript-mode flycheck-purescript org-trello elm-mode enh-ruby-mode magit ledger-mode flycheck evil editorconfig coffee-mode)))
+    (flycheck-haskell psc-ide flycheck-elm flycheck-rust evil-magit rust-mode add-node-modules-path markdown-mode vue-mode web-mode company-go go-mode haskell-mode company eslint-fix js2-mode jtags purescript-mode org-trello elm-mode enh-ruby-mode magit ledger-mode evil editorconfig coffee-mode)))
  '(ruby-deep-indent-paren nil)
  '(web-mode-code-indent-offset 2)
  '(web-mode-css-indent-offset 2)

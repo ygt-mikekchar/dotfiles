@@ -25,3 +25,4 @@ SendClipboard=1
 SendPrimary=1
 MenuKey=F8
 FullscreenSystemKeys=1
+AlertOnFatalError=1
