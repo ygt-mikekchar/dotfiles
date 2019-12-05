@@ -1,5 +1,6 @@
 #!/bin/sh
 
 # These get clobbered and have to be reset frequently by hand
+setxkbmap -layout jp
 xmodmap $HOME/.xmodmaprc
 xset r rate 200 25

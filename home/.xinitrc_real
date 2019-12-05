@@ -43,7 +43,7 @@ dunst &
 wicd-client --tray >/dev/null&
 
 # Use compositing
-compton --config "$HOME"/.compton.conf -b
+picom --config "$HOME"/.compton.conf -b
 
 # Set the background picture
 feh --bg-scale /usr/share/backgrounds/archlinux/archlinux-carbonite-knight.jpg
@@ -60,4 +60,5 @@ if pgrep gpg-agent; then
   pkill gpg-agent
 fi
 
-gpg-agent --enable-ssh-support --pinentry-program /usr/bin/pinentry-gtk-2 --log-file /home/mikekchar/gpg-log --daemon i3
+#gpg-agent --enable-ssh-support --pinentry-program /usr/bin/pinentry-gtk-2 --log-file /home/mikekchar/gpg-log --daemon i3
+i3
