@@ -1,5 +1,6 @@
 keycode 9 = Escape
 keycode 102 = Tab
+keycode 100 = Return
 keycode 23 = Escape
 keycode 66 = Control_L
 clear Lock
