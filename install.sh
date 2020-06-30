@@ -110,3 +110,4 @@ DEST=$HOME
 link_contents home $DEST
 copy_contents shims $DEST
 link_file .vim $DEST
+link_file nvim "$DEST/.config"
