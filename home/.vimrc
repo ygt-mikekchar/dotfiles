@@ -2,7 +2,7 @@ execute pathogen#infect()
 syntax enable
 filetype plugin indent on
 set number
-set fillchars+=vert:\  
+set fillchars+=vert:\
 set hlsearch
 
 map <leader>s :execute "noautocmd vimgrep /" . expand("<cword>")  . "/j **/" . expand("%e") <BAR> cw<CR>
@@ -84,26 +84,36 @@ if has('nvim')
   Plug 'Chiel92/vim-autoformat'
   call plug#end()
 
-  " setup rust_analyzer LSP (IDE features)
+  " setup LSP (IDE features)
   lua require'nvim_lsp'.rust_analyzer.setup{}
-
+  lua require'nvim_lsp'.gopls.setup{}
+  lua require'nvim_lsp'.solargraph.setup{}
+  "
   " Use LSP omni-completion in Rust files
   autocmd Filetype rust setlocal omnifunc=v:lua.vim.lsp.omnifunc
 
-  " Enable deoplete autocompletion in Rust files
+  " Enable deoplete autocompletion
   let g:deoplete#enable_at_startup = 1
 
-  " customise deoplete                                                                                                                                                     " maximum candidate window length
+  " customise deoplete
+  " maximum candidate window length
   call deoplete#custom#source('_', 'max_menu_width', 80)
 
   " Press Tab to scroll _down_ a list of auto-completions
   let g:SuperTabDefaultCompletionType = "<c-n>"
 
   " rustfmt on write using autoformat
-  autocmd BufWrite * :Autoformat
-
-  "TODO: clippy on write
-  autocmd BufWrite * :Autoformat
+  let g:formatdef_rustfmt = '"rustfmt +nightly --edition 2018"'
+  autocmd BufWrite * if &ft==?'rust'|:Autoformat|endif
 
   nnoremap <leader>c :!cargo clippy
+  nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+  nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+  nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+  nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+  nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+  nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+  nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+  nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+  nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 endif
