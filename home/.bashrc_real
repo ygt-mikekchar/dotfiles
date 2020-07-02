@@ -3,6 +3,9 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+# WTF Arch.  Why are you setting this????
+export PROMPT_COMMAND=
+
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -30,11 +33,11 @@ fi
 # Install:
 #   git clone https://github.com/sstephenson/rbenv.git $HOME/pkg/rbenv
 #   git clone https://github.com/sstephenson/ruby-build.git $HOME/pkg/rbenv/plugins/ruby-build
-if [ -d $HOME/pkg/rbenv ]; then
-  export RBENV_ROOT="$HOME/pkg/rbenv"
-  export "PATH=$RBENV_ROOT/bin:$PATH"
-  eval "$(rbenv init -)"
-fi
+# if [ -d $HOME/pkg/rbenv ]; then
+#   export RBENV_ROOT="$HOME/pkg/rbenv"
+#   export "PATH=$RBENV_ROOT/bin:$PATH"
+#   eval "$(rbenv init -)"
+# fi
 
 # pyenv
 #   git clone https://github.com/yyuu/pyenv.git $HOME/pkg/pyenv
@@ -74,11 +77,12 @@ if [ -d $HOME/pkg/google-cloud-sdk ]; then
   source "$HOME/pkg/google-cloud-sdk/completion.bash.inc"
 fi
 
-# Cabal
+# Rustup
 # Install:
-#   pacman -S cabal
-if [ -d $HOME/.cabal ]; then
-  export PATH="$PATH:$HOME/.cabal/bin"
+# pacman -S rustup
+if [ -d $HOME/.cargo/bin ]; then
+  export "PATH=.cargo/bin:$PATH"
+  # rustup completions bash > ~/.local/share/bash-completion/completions/rustup
 fi
 
 # GPG Agent
@@ -127,15 +131,6 @@ complete -o nospace -F complete_terminal_theme terminal_theme
 
 # Fix reparenting issue with java and window manager
 export _JAVA_AWT_WM_NONREPARENTING=1
-
-# Aliases
-alias thyme="$HOME"/pkg/rbenv/versions/2.3.1/bin/thyme
-alias salesup="pushd $HOME/work/vagabond;VAGRANT_USE_RSYNC=1 vagrant up sales;popd"
-alias spinup="pushd $HOME/work/vagabond;VAGRANT_USE_RSYNC=1 vagrant up spin;popd"
-alias vmlogin="ssh -o \"UserKnownHostsFile=/dev/null\" -o \"StrictHostKeyChecking=no\" -Ap 2222 mikecharlton@localhost"
-alias vmstatus="pushd $HOME/work/vagabond;vagrant status; popd"
-alias salesdown="pushd $HOME/work/vagabond;vagrant halt sales;popd"
-alias spindown="pushd $HOME/work/vagabond;vagrant halt spin;popd"
 
 # Finally a bin directory to override anything.  Always put this last.
 if [ -d "$HOME/.bin" ]; then

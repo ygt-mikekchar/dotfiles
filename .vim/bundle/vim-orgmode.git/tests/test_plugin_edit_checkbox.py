@@ -8,6 +8,8 @@ import vim
 
 from orgmode._vim import ORGMODE
 
+from orgmode.py3compat.encode_compatibility import *
+
 PLUGIN_NAME = u'EditCheckbox'
 
 bufnr = 10
@@ -20,11 +22,31 @@ def set_vim_buffer(buf=None, cursor=(2, 0), bufnr=0):
 	vim.current.buffer.number = bufnr
 
 
+counter = 0
 class EditCheckboxTestCase(unittest.TestCase):
 	def setUp(self):
 		if PLUGIN_NAME not in ORGMODE.plugins:
 			ORGMODE.register_plugin(PLUGIN_NAME)
 		self.editcheckbox = ORGMODE.plugins[PLUGIN_NAME]
+		vim.EVALRESULTS = {
+				# no org_todo_keywords for b
+				u_encode(u'exists("b:org_todo_keywords")'): u_encode('0'),
+				# global values for org_todo_keywords
+				u_encode(u'exists("g:org_todo_keywords")'): u_encode('1'),
+				u_encode(u'g:org_todo_keywords'): [u_encode(u'TODO'), u_encode(u'|'), u_encode(u'DONE')],
+				u_encode(u'exists("g:org_improve_split_heading")'): u_encode(u'0'),
+				u_encode(u'exists("b:org_improve_split_heading")'): u_encode(u'0'),
+				u_encode(u'exists("g:org_debug")'): u_encode(u'0'),
+				u_encode(u'exists("b:org_debug")'): u_encode(u'0'),
+				u_encode(u'exists("*repeat#set()")'): u_encode(u'0'),
+				u_encode(u'b:changedtick'): u_encode(u'%d' % counter),
+				u_encode(u'&ts'): u_encode(u'8'),
+				u_encode(u'exists("g:org_tag_column")'): u_encode(u'0'),
+				u_encode(u'exists("b:org_tag_column")'): u_encode(u'0'),
+				u_encode(u"v:count"): u_encode(u'0'),
+				# jump to insert mode after adding heading/checkbox
+				u_encode(u'exists("g:org_prefer_insert_mode")'): u_encode(u'0'),
+				u_encode(u'exists("b:org_prefer_insert_mode")'): u_encode(u'0')}
 
 		self.c1 = u"""
 * heading1 [%]
@@ -139,23 +161,23 @@ class EditCheckboxTestCase(unittest.TestCase):
 		set_vim_buffer(buf=self.c5, bufnr=bufnr)
 
 		vim.current.window.cursor = (3, 1)
-		self.editcheckbox.new_checkbox(below=False)
+		self.editcheckbox.new_checkbox(below=False, plain=True)
 		self.assertEqual(vim.current.buffer[2], u"  0. ")
 		self.assertEqual(vim.current.buffer[3], u"  1. item")
 
 		vim.current.window.cursor = (3, 1)
-		self.editcheckbox.new_checkbox(below=False)
+		self.editcheckbox.new_checkbox(below=False, plain=True)
 		self.assertEqual(vim.current.buffer[1], u"* heading1")
 		self.assertEqual(vim.current.buffer[2], u"  0. ")
 		self.assertEqual(vim.current.buffer[3], u"  1. item")
 
 		vim.current.window.cursor = (5, 1)
-		self.editcheckbox.new_checkbox(below=False)
+		self.editcheckbox.new_checkbox(below=False, plain=True)
 		self.assertEqual(vim.current.buffer[4], u"  8. ")
 		self.assertEqual(vim.current.buffer[5], u"  9. item")
 
 		vim.current.window.cursor = (8, 1)
-		self.editcheckbox.new_checkbox(below=False)
+		self.editcheckbox.new_checkbox(below=False, plain=True)
 		# no further decrement than a
 		self.assertEqual(vim.current.buffer[6], u"  }. item")
 		self.assertEqual(vim.current.buffer[7], u"  a. item")
@@ -166,7 +188,7 @@ class EditCheckboxTestCase(unittest.TestCase):
 		bufnr += 1
 		set_vim_buffer(buf=self.c5, bufnr=bufnr)
 		vim.current.window.cursor = (8, 1)
-		self.editcheckbox.new_checkbox(below=False)
+		self.editcheckbox.new_checkbox(below=False, plain=True)
 		# decrement from A to z
 		self.assertEqual(vim.current.buffer[7], u"  z. ")
 		self.assertEqual(vim.current.buffer[8], u"  A. item")
@@ -177,12 +199,12 @@ class EditCheckboxTestCase(unittest.TestCase):
 		set_vim_buffer(buf=self.c5, bufnr=bufnr)
 
 		vim.current.window.cursor = (3, 1)
-		self.editcheckbox.new_checkbox(below=True)
+		self.editcheckbox.new_checkbox(below=True, plain=True)
 		self.assertEqual(vim.current.buffer[2], u"  1. item")
 		self.assertEqual(vim.current.buffer[3], u"  2. ")
 
 		vim.current.window.cursor = (5, 1)
-		self.editcheckbox.new_checkbox(below=True)
+		self.editcheckbox.new_checkbox(below=True, plain=True)
 		self.assertEqual(vim.current.buffer[4], u"  9. item")
 		self.assertEqual(vim.current.buffer[5], u"  }. item")
 		self.assertEqual(vim.current.buffer[6], u"  10. ")
@@ -193,23 +215,23 @@ class EditCheckboxTestCase(unittest.TestCase):
 		set_vim_buffer(buf=self.c5, bufnr=bufnr)
 
 		vim.current.window.cursor = (6, 1)
-		self.editcheckbox.new_checkbox(below=True)
+		self.editcheckbox.new_checkbox(below=True, plain=True)
 		self.assertEqual(vim.current.buffer[5], u"  a. item")
 		self.assertEqual(vim.current.buffer[6], u"  b. ")
 
 		vim.current.window.cursor = (8, 1)
-		self.editcheckbox.new_checkbox(below=True)
+		self.editcheckbox.new_checkbox(below=True, plain=True)
 		self.assertEqual(vim.current.buffer[7], u"  z. item")
 		self.assertEqual(vim.current.buffer[8], u"  A. ")
 
 		vim.current.window.cursor = (11, 1)
-		self.editcheckbox.new_checkbox(below=True)
+		self.editcheckbox.new_checkbox(below=True, plain=True)
 		self.assertEqual(vim.current.buffer[10], u"  Z. item")
 		self.assertEqual(vim.current.buffer[11], u"  aa. item")
 		self.assertEqual(vim.current.buffer[12], u"")
 
 		vim.current.window.cursor = (12, 1)
-		self.editcheckbox.new_checkbox(below=True)
+		self.editcheckbox.new_checkbox(below=True, plain=True)
 		self.assertEqual(vim.current.buffer[11], u"  aa. item")
 		self.assertEqual(vim.current.buffer[12], u"")
 

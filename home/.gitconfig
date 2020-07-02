@@ -5,3 +5,5 @@
   excludesfile = /home/mikekchar/.gitignore_local
 [diff]
   tool = vimdiff
+[diff "sopsdiffer"]
+	textconv = sops -d
