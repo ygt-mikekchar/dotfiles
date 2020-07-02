@@ -1,0 +1,6 @@
+{
+  "rust-analyzer.serverPath": "/home/mikekchar/.cargo/bin/rust-analyzer",
+  "rust-analyzer.updates.channel": "stable",
+  "rust-analyzer.cargo-watch.allTargets": true,
+  "coc.preferences.formatOnSaveFiletypes": ["rust"]
+}
