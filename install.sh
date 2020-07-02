@@ -17,7 +17,7 @@ link_file() {
 
   if [ -h "$dest/$file" ]; then
     rm "$dest/$file"
-  fi 
+  fi
   if [ -e "$dest/$file" ]; then
     echo "Warning: $dest/$file exists and is not a link.  Skipping link file."
   else
@@ -76,7 +76,7 @@ copy_file() {
 
   if [ -h "$dest/$file" ]; then
     rm "$dest/$file"
-  fi 
+  fi
   cp $(readlink -f "$file") "$dest/$file"
 }
 
