@@ -1,48 +1,22 @@
-execute pathogen#infect()
-syntax enable filetype plugin indent on
-set number
-set fillchars+=vert:\
-set hlsearch
+call plug#begin('~/plugged/')
+Plug 'ygt-mikekchar/agnostic'
+Plug 'tpope/vim-sensible'
+Plug 'gerw/vim-HiLinkTrace'
+Plug 'vim-syntastic/syntastic'
+Plug 'tpope/vim-fugitive'
+Plug 'mtscout6/vim-cjsx'
+Plug 'kchmck/vim-coffee-script'
+Plug 'jwhitley/vim-literate-coffeescript'
+Plug 'ledger/vim-ledger'
+Plug 'plasticboy/vim-markdown'
+if has('nvim')
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+endif
+call plug#end()
 
-map <leader>s :execute "noautocmd vimgrep /" . expand("<cword>")  . "/j **/" . expand("%e") <BAR> cw<CR>
-
-" set tab stops to 2 and expand tabs to spaces
-set ts=2
-set sw=2
-set expandtab
-
-" Use tabs for java files
-au FileType java setlocal ts=4 sts=4 sw=4 noexpandtab
-au FileType xml setlocal ts=4 sts=4 sw=4 noexpandtab
-
-" turn on ruby evaluation for c-x c-o expansion
-let g:rubycomplete_buffer_loading = 1
-let g:rubycomplete_classes_in_global = 1
-let g:rubycomplete_rails = 1
-
-" Options for Go
-filetype off
-set runtimepath+=/usr/lib/go/misc/vim
-filetype plugin indent on
-syntax on
-autocmd FileType go set noexpandtab
-
-" Options for Haml
-autocmd FileType haml set noexpandtab
-
-" Options for Vimux
-let VimuxUseNearestPane = 1
-map <Leader>rp :VimuxPromptCommand<CR>
-map <Leader>rr :VimuxRunLastCommand<CR>
-map <leader>n :NERDTreeToggle<cr>
-
-" Options for Syntastic
+" Syntastic
 let g:syntastic_javascript_checkers = ['jsxhint']
 let g:syntastic_ruby_checkers = ['rubocop']
-
-" Start and stop thyme
-nmap <leader>t :!thyme -d<cr>
-nmap <leader>T :!thyme -s<cr>
 
 " GUI
 " Disable Background Color Erase (BCE) so that color schemes
@@ -56,40 +30,70 @@ endif
 set t_Co=256
 colorscheme agnostic
 
-" Don't rename files when making backups (it screws up webpack)
-:set backupcopy=yes
+" Enable syntax highlighting and loading of plugin and indendation
+" rules whenever the filetype changes (I think...)
+syntax enable filetype plugin indent on
+set number
+set fillchars+=vert:\
+set hlsearch
 
-" Setting up the mouse for console work
-set ttyfast
-"set mouse=a
-"set ttymouse=xterm2
-"set mousehide
-"set mousemodel=popup
+" \s will search for the word under the cursor in all the files with the same
+" extension as the current file
+map <leader>s :execute "noautocmd vimgrep /" . expand("<cword>")  . "/j **/*." . expand("%:e") <BAR> cw<CR>
 
-" Org mode setup
+" set tab stops to 2 and expand tabs to spaces
+set ts=2
+set sw=2
+set expandtab
+
+" Java files
+" Use tabs and set tab width to 4
+au FileType java setlocal ts=4 sts=4 sw=4 noexpandtab
+
+" XML files
+" Use tabs and set tab width to 4
+au FileType xml setlocal ts=4 sts=4 sw=4 noexpandtab
+
+" turn on ruby evaluation for c-x c-o expansion
+let g:rubycomplete_buffer_loading = 1
+let g:rubycomplete_classes_in_global = 1
+let g:rubycomplete_rails = 1
+
+" Go files
+filetype off
+set runtimepath+=/usr/lib/go/misc/vim
+filetype plugin indent on
+syntax on
+" Use tabs
+autocmd FileType go set noexpandtab
+
+" Haml files
+" Use tabs
+autocmd FileType haml set noexpandtab
+
+" Org mode
 let g:org_heading_shade_leading_stars = 0
 let g:org_indent = 0
 
-" Setup for literate coffee
+" Literate coffee
 autocmd FileType litcoffee runtime ftplugin/coffee.vim
 autocmd FileType cjsx.md runtime ftplugin/coffee.vim
 
 " Coc setup
 if has('nvim')
-  call plug#begin()
-    " Use release branch (recommend)
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  call plug#end()
-  " TextEdit might fail if hidden is not set.
+  " Hide buffers that are abandoned rather than unloading them
+  " CoC TextEdit might fail if hidden is not set.
   set hidden
 
-  " Some servers have issues with backup files, see #649.
+  " Do not make backup files
+  " Some CoC servers have issues with backup files, see #649.
   set nobackup
   set nowritebackup
 
   " Give more space for displaying messages.
   set cmdheight=2
 
+  " Determines the amount of time to wait for hover
   " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
   " delays and poor user experience.
   set updatetime=300
@@ -154,7 +158,7 @@ if has('nvim')
     endif
   endfunction
 
-  " Highlight the symbol and its references when holding the cursor.
+  " Highlight the symbol and its references when hovering the cursor.
   autocmd CursorHold * silent call CocActionAsync('highlight')
 
   " Symbol renaming.
@@ -164,7 +168,7 @@ if has('nvim')
   xmap <leader>f  <Plug>(coc-format-selected)
   nmap <leader>f  <Plug>(coc-format-selected)
 
-  augroup mygroup
+  augroup mycocgroup
     autocmd!
     " Setup formatexpr specified filetype(s).
     autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
@@ -211,8 +215,8 @@ if has('nvim')
   " NOTE: Please see `:h coc-status` for integrations with external plugins that
   " provide custom statusline: lightline.vim, vim-airline.
   set statusline=
-	set statusline+=%<%f\ %h%m%r%-14.(%l,%c%V%)\ %P
-	set statusline+=\ %{coc#status()}%{get(b:,'coc_current_function','')}
+  set statusline+=%<%f\ %h%m%r%-14.(%l,%c%V%)\ %P
+  set statusline+=\ %{coc#status()}%{get(b:,'coc_current_function','')}
 
   " Mappings for CoCList
   " Show all diagnostics.
