@@ -99,9 +99,9 @@ font:
   #use_thin_strokes: true
 
 # If `true`, bold text is drawn using the bright color variants.
-#draw_bold_text_with_bright_colors: true
+draw_bold_text_with_bright_colors: true
 
-# Colors (Dwarf Fortress)
+#Colors (Dwarf Fortress)
 colors:
   # Default colors
   primary:
@@ -147,7 +147,7 @@ colors:
     cyan:    '0x3bd5da'
     white:   '0xffeaf5'
 
-# Colors (Lawnchairs)
+## Colors (Lawnchairs)
 #colors:
 #  # Default colors
 #  primary:
@@ -193,7 +193,7 @@ colors:
 #    cyan:    '0x1a9095'
 #    white:   '0x223e4e'
 
-# Colors (Agnostic-chalk))
+## Colors (Agnostic-chalk))
 #colors:
 #  # Default colors
 #  primary:
@@ -260,7 +260,7 @@ colors:
 #   - Linear
 #
 # Specifying a `duration` of `0` will disable the visual bell.
-visual_bell:
+bell:
   animation: EaseOutExpo
   duration: 0
   color: '0xffffff'
@@ -278,7 +278,7 @@ selection:
   save_to_clipboard: false
 
 # Allow terminal applications to change Alacritty's window title.
-dynamic_title: true
+window.dynamic_title: true
 
 cursor:
   # Cursor style

@@ -180,7 +180,7 @@
   (eval-after-load 'rust-mode
     (lambda ()
       (setq rust-format-on-save t)
-      (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))))
+      )))
 
 (use-package go-mode
   :ensure t

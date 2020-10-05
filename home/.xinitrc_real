@@ -40,7 +40,7 @@ pasystray &
 dunst &
 
 # Network management client
-wicd-client --tray >/dev/null&
+nm-applet &
 
 # Use compositing
 picom --config "$HOME"/.compton.conf -b

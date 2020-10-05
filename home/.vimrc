@@ -1,3 +1,6 @@
+let g:syntastic_java_javac_executable = 'make'
+let g:syntastic_java_javac_options = '-s -C /home/mikekchar/work/sales gwt-lint; : '
+
 call plug#begin('~/plugged/')
 Plug 'ygt-mikekchar/agnostic'
 Plug 'tpope/vim-sensible'
@@ -17,6 +20,7 @@ call plug#end()
 " Syntastic
 let g:syntastic_javascript_checkers = ['jsxhint']
 let g:syntastic_ruby_checkers = ['rubocop']
+let g:syntastic_java_javac_config_file_enabled = 1
 
 " GUI
 " Disable Background Color Erase (BCE) so that color schemes
@@ -91,7 +95,7 @@ if has('nvim')
   set nowritebackup
 
   " Give more space for displaying messages.
-  set cmdheight=2
+  set cmdheight=1
 
   " Determines the amount of time to wait for hover
   " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable

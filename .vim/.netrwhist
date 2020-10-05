@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =5
+let g:netrw_dirhist_5='/home/mikekchar/work/sales/script/cron'
+let g:netrw_dirhist_4='/home/mikekchar/work/sales/app/services/reports/action_required'
+let g:netrw_dirhist_3='/home/mikekchar/work/sales/couchapp/main/Enquiry/views/by_distributed_to_and_group'
+let g:netrw_dirhist_2='/home/mikekchar/work/sales/gwt/test/unit/com/yourgolftravel/sales/client/booking/customerpayments'
+let g:netrw_dirhist_1='/home/mikekchar/devel/ds/src/game/dwarf'
+let g:netrw_dirhist_0='/home/mikekchar/devel/ds/src/game'
+let g:netrw_dirhist_9='/home/mikekchar/devel/ds/src/game/client/point'
+let g:netrw_dirhist_8='/home/mikekchar/devel/ds/src/game/client'
+let g:netrw_dirhist_7='/home/mikekchar/devel/ds/src/game/client/window'
+let g:netrw_dirhist_6='/home/mikekchar/work/sales/spec/scenario/db_view'
